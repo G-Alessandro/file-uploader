@@ -1,23 +1,33 @@
-var createError = require("http-errors");
-var express = require("express");
+const createError = require("http-errors");
+const express = require("express");
 const expressSession = require("express-session");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 const { PrismaClient } = require("@prisma/client");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-require("dotenv").config;
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const cors = require("cors");
+require("dotenv").config();
 
-var indexRouter = require("./routes/index");
+const indexRouter = require("./routes/index");
+const allowedOrigin = process.env.ALLOWED_ORIGIN;
+const sessionSecret = process.env.SESSION_SECRET;
 
-var app = express();
+const app = express();
+
+app.use(
+  cors({
+    origin: allowedOrigin,
+    credentials: true,
+  })
+);
 
 app.use(
   expressSession({
     cookie: {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     },
-    secret: process.env.SESSION_SECRET,
+    secret: sessionSecret,
     resave: true,
     saveUninitialized: true,
     store: new PrismaSessionStore(new PrismaClient(), {
