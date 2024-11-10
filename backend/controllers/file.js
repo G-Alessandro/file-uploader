@@ -67,6 +67,8 @@ exports.file_post = [
     }
     try {
       const userId = req.user.id;
+      const folderId = req.body.folderId ? req.body.folderId : null;
+      
       const newFile = await cloudinary.uploader.upload(req.file.path, {
         folder: "fileUploader",
       });
@@ -78,7 +80,7 @@ exports.file_post = [
           url: newFile.secure_url,
           public_id: newFile.public_id,
           userId: userId,
-          folder: req.body.folderId ? req.body.folderId : null,
+          folderId: folderId,
         },
       });
 
