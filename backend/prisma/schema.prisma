@@ -45,7 +45,7 @@ model File {
 
 model Folder {
   id             Int         @id @default(autoincrement())
-  name           String
+  name           String      @db.VarChar(40)
   files          File[]
   subfolders     Folder[]    @relation("Subfolders")
   parentFolder   Folder?     @relation("Subfolders", fields: [parentFolderId], references: [id])
