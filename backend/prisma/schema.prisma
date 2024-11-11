@@ -33,7 +33,7 @@ model UserAccount {
 model File {
   id        Int         @id @default(autoincrement())
   name      String      @db.VarChar(40)
-  category  String      @default("file")
+  category  String      @default("file") @db.VarChar(20)
   size      String
   url       String
   public_id String
