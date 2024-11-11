@@ -51,16 +51,19 @@ exports.folder_get = [
 exports.folder_post = [
   body("folderName").isLength({ min: 1, max: 40 }).trim().escape(),
   body("folderId").optional().trim().escape(),
+  body("shareFolder").isBoolean().trim().escape(),
   asyncHandler(async (req, res) => {
     handleValidationErrors(req, res);
 
     try {
       const userId = req.user.id;
       const folderId = req.body.folderId ? req.body.folderId : null;
+      const shareFolder = req.body.shareFolder;
       await prisma.folder.create({
         data: {
           name: req.body.folderName,
           userId: userId,
+          shareFolder: shareFolder,
           parentFolderId: folderId,
         },
       });
