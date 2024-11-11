@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const { body } = require("express-validator");
+const { body, param } = require("express-validator");
 const handleValidationErrors = require("../utils/validation");
 const cloudinary = require("../utils/cloudinary/cloudinary-config");
 const multer = require("../utils/multer/multer");
@@ -81,7 +81,7 @@ exports.file_post = [
 
       await fs.promises.unlink(req.file.path);
 
-      res.status(200).json({ message: "File saved successfully!" });
+      res.status(200).json({ message: "File saved" });
     } catch (error) {
       console.error(error);
       return res.status(500).json({
@@ -92,7 +92,7 @@ exports.file_post = [
 ];
 
 exports.file_delete = [
-  body("fileId").trim().escape(),
+  body("fileId").escape(),
   asyncHandler(async (req, res) => {
     handleValidationErrors(req, res);
 
@@ -112,11 +112,46 @@ exports.file_delete = [
           id: fileId,
         },
       });
-      res.status(200).json({ message: "File removed!" });
+      res.status(200).json({ message: "File removed" });
     } catch (error) {
       console.error(error);
       return res.status(500).json({
         error: "An error occurred while deleting the file.",
+      });
+    }
+  }),
+];
+
+exports.file_download_get = [
+  param("id").escape(),
+  asyncHandler(async (req, res) => {
+    handleValidationErrors(req, res);
+
+    try {
+      const fileId = req.params.id;
+      const fileData = await prisma.file.findUnique({
+        where: {
+          id: fileId,
+        },
+        select: {
+          name: true,
+          public_id: true,
+        },
+      });
+
+      const downloadUrl = cloudinary.url(fileData.public_id, {
+        resource_type: "auto",
+        flags: "attachment",
+        attachment: fileData.name,
+      });
+
+      res.status(200).json({
+        downloadUrl,
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        error: "An error occurred while downloading the file.",
       });
     }
   }),
