@@ -8,9 +8,8 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 exports.folder_file_get = asyncHandler(async (req, res) => {
-
   handleValidationErrors(req, res);
-  
+
   try {
     const userId = req.user.id;
     const allFolder = await prisma.folder.findMany({
@@ -82,12 +81,7 @@ exports.file_post = [
 
       await fs.promises.unlink(req.file.path);
 
-      res.status(200).json({
-        file: {
-          url: newFile.secure_url,
-          public_id: newFile.public_id,
-        },
-      });
+      res.status(200).json({ message: "File saved successfully!" });
     } catch (error) {
       console.error(error);
       return res.status(500).json({
@@ -100,7 +94,6 @@ exports.file_post = [
 exports.file_delete = [
   body("fileId").trim().escape(),
   asyncHandler(async (req, res) => {
-
     handleValidationErrors(req, res);
 
     try {
