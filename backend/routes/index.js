@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const authentication_controllers = require("../controllers/authentication");
 const file_controllers = require("../controllers/file");
+const folder_controllers = require("../controllers/folder");
 
 // Authentication Controllers
 router.post("/sign-in", authentication_controllers.sign_in_post);
@@ -24,5 +25,15 @@ router.get("/all-folders-files", file_controllers.folder_file_get);
 router.post("/new-file", file_controllers.file_post);
 
 router.delete("/remove-file", file_controllers.file_delete);
+
+// Folder Controllers
+
+router.get("/get-folders/:id", folder_controllers.folder_get);
+
+router.post("/new-folder", folder_controllers.folder_post);
+
+router.put("/change-name-folder", folder_controllers.folder_put);
+
+router.delete("/remove-folder", folder_controllers.folder_delete);
 
 module.exports = router;
