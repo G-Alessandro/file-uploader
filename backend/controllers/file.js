@@ -7,6 +7,42 @@ const fs = require("fs");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+exports.shared_file_get = asyncHandler(async (req, res) => {
+  handleValidationErrors(req, res);
+  try {
+    const sharedFolder = await prisma.folder.findMany({
+      where: {
+        shareFolder: true,
+      },
+      select: {
+        id: true,
+      },
+    });
+    const sharedFile = await Promise.all(
+      sharedFolder.map(async (id) => {
+        prisma.file.findMany({
+          where: { folderId: id },
+          select: {
+            id: true,
+            name: true,
+            size: true,
+            url: true,
+            public_id: true,
+            createdAt: true,
+          },
+        });
+      })
+    );
+
+    res.status(200).json({ sharedFile });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      error: "An error occurred while searching for shared files.",
+    });
+  }
+});
+
 exports.folder_file_get = asyncHandler(async (req, res) => {
   handleValidationErrors(req, res);
 
@@ -52,7 +88,8 @@ exports.folder_file_get = asyncHandler(async (req, res) => {
 exports.file_post = [
   multer.single("file"),
   body("fileName").trim().isLength({ min: 1, max: 40 }).escape(),
-  body("folderId").optional().trim().escape(),
+  body("fileId").optional().trim().escape(),
+  body("category").optional().trim().isLength({ min: 1, max: 20 }).escape(),
   asyncHandler(async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded" });
@@ -63,6 +100,7 @@ exports.file_post = [
     try {
       const userId = req.user.id;
       const folderId = req.body.folderId ? req.body.folderId : null;
+      const fileCategory = req.user.category;
 
       const newFile = await cloudinary.uploader.upload(req.file.path, {
         folder: "fileUploader",
@@ -71,6 +109,7 @@ exports.file_post = [
       await prisma.file.create({
         data: {
           name: req.body.fileName,
+          category: fileCategory,
           size: req.file.size.toString(),
           url: newFile.secure_url,
           public_id: newFile.public_id,
