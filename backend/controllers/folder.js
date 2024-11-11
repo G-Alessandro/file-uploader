@@ -4,46 +4,49 @@ const handleValidationErrors = require("../utils/validation");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-exports.folder_get = asyncHandler(async (req, res) => {
-  handleValidationErrors(req, res);
+exports.folder_get = [
+  param("id").trim().escape(),
+  asyncHandler(async (req, res) => {
+    handleValidationErrors(req, res);
 
-  try {
-    const userId = req.user.id;
-    const folderId = req.params.id;
+    try {
+      const userId = req.user.id;
+      const folderId = req.params.id;
 
-    const subFolder = await prisma.folder.findMany({
-      where: {
-        userId: userId,
-        parentFolderId: folderId,
-      },
-      select: {
-        id: true,
-        name: true,
-      },
-    });
+      const subFolder = await prisma.folder.findMany({
+        where: {
+          userId: userId,
+          parentFolderId: folderId,
+        },
+        select: {
+          id: true,
+          name: true,
+        },
+      });
 
-    const folderFile = await prisma.file.findMany({
-      where: {
-        userId: userId,
-        folderId: folderId,
-      },
-      select: {
-        id: true,
-        name: true,
-        size: true,
-        url: true,
-        public_id: true,
-        createdAt: true,
-      },
-    });
-    res.status(200).json({ subFolder, folderFile });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      error: "An error occurred while searching for data.",
-    });
-  }
-});
+      const folderFile = await prisma.file.findMany({
+        where: {
+          userId: userId,
+          folderId: folderId,
+        },
+        select: {
+          id: true,
+          name: true,
+          size: true,
+          url: true,
+          public_id: true,
+          createdAt: true,
+        },
+      });
+      res.status(200).json({ subFolder, folderFile });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        error: "An error occurred while searching for data.",
+      });
+    }
+  }),
+];
 
 exports.folder_post = [
   body("folderName").isLength({ min: 1, max: 40 }).trim().escape(),
