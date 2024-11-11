@@ -26,6 +26,8 @@ router.post("/new-file", file_controllers.file_post);
 
 router.delete("/remove-file", file_controllers.file_delete);
 
+router.get("/download-files", file_controllers.file_download_get);
+
 // Folder Controllers
 
 router.get("/get-folders/:id", folder_controllers.folder_get);
