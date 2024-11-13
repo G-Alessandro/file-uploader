@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const handleValidationErrors = require("../utils/validation");
+const handleValidationErrors = require("../utils/validation/validation");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 

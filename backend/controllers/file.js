@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const { body, param } = require("express-validator");
-const handleValidationErrors = require("../utils/validation");
+const handleValidationErrors = require("../utils/validation/validation");
 const cloudinary = require("../utils/cloudinary/cloudinary-config");
 const multer = require("../utils/multer/multer");
 const fs = require("fs");
