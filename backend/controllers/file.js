@@ -66,6 +66,7 @@ exports.folder_file_get = asyncHandler(async (req, res) => {
       select: {
         id: true,
         name: true,
+        category: true,
         size: true,
         url: true,
         public_id: true,
