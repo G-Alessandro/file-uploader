@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const authentication_controllers = require("../controllers/authentication");
+const user_controllers = require("../controllers/user");
 const file_controllers = require("../controllers/file");
 const folder_controllers = require("../controllers/folder");
 
@@ -17,6 +18,10 @@ router.get(
 );
 
 router.get("/logout", authentication_controllers.logout_get);
+
+// User controllers
+
+router.get("/user-data", user_controllers.user_data_get);
 
 // File Controllers
 
