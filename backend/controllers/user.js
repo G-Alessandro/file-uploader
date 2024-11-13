@@ -6,9 +6,10 @@ const prisma = new PrismaClient();
 exports.user_data_get = asyncHandler(async (req, res) => {
   handleValidationErrors(req, res);
   try {
+    const userId = req.user.id;
     const userData = await prisma.userAccount.findUnique({
       where: {
-        id: req.user.id,
+        id: userId,
       },
       select: {
         firstName: true,
