@@ -1,6 +1,7 @@
 const createError = require("http-errors");
 const express = require("express");
 const expressSession = require("express-session");
+const passport = require("./utils/user-authentication/passport-config");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 const { PrismaClient } = require("@prisma/client");
 const path = require("path");
@@ -38,6 +39,9 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
@@ -63,7 +67,6 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
 });
 
 module.exports = app;
