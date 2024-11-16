@@ -38,7 +38,7 @@ exports.folder_get = [
           createdAt: true,
         },
       });
-      res.status(200).json({ subFolder, folderFile });
+      res.status(200).json({ folders: subFolder, files: folderFile });
     } catch (error) {
       console.error(error);
       return res.status(500).json({
