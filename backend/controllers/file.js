@@ -137,10 +137,12 @@ exports.file_delete = [
     handleValidationErrors(req, res);
 
     try {
+      const userId = req.user.id;
       const fileId = req.body.fileId;
       const fileData = await prisma.file.findUnique({
         where: {
           id: fileId,
+          userId: userId,
         },
         select: {
           public_id: true,
