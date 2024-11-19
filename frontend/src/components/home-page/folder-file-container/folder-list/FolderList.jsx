@@ -3,6 +3,7 @@ import Checkmark from "/assets/svg/checkmark.svg";
 import DeleteSvg from "/assets/svg/delete.svg";
 import EditSvg from "/assets/svg/edit.svg";
 import CancelSvg from "/assets/svg/cancel.svg";
+import FolderSvg from "/assets/svg/folder.svg";
 
 export default function FolderList({
   setError,
@@ -116,7 +117,7 @@ export default function FolderList({
               onClick={() => setFolderId(folder.id)}
               aria-label={`Click to view the file inside the folder ${folder.name}`}
             >
-              <img src="" alt="" />
+              <img src={FolderSvg} />
 
               {!showFolderOptions[index] && <p>{folder.name}</p>}
 
