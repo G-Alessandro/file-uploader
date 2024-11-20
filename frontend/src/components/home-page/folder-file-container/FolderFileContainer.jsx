@@ -7,7 +7,8 @@ export default function FolderFileContainer(
   setError,
   setSuccessfulAction,
   statusChanged,
-  setStatusChanged
+  setStatusChanged,
+  setParentFolderId
 ) {
   const [fileList, setFileList] = useState(null);
   const [folderList, setFolder] = useState(null);
@@ -18,6 +19,7 @@ export default function FolderFileContainer(
       let fetchPath;
       if (folderId !== null) {
         fetchPath = `get-folders/${folderId}`;
+        setParentFolderId(folderId);
       } else {
         fetchPath = "all-folders-files";
       }
