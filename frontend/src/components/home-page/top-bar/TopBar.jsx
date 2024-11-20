@@ -1,10 +1,23 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import LogoutSvg from "/assets/svg/logout.svg";
+import LogoutSvg from "/assets/svg/logout.svg";
+import AddFolderSvg from "/assets/svg/add-folder.svg";
+import AddFileSvg from "/assets/svg/add-file.svg";
+import AddFile from "./add-file/AddFile";
+import AddFolder from "./add-folder/AddFolder";
 
-export default function TopBar() {
+export default function TopBar({
+  error,
+  setError,
+  successfulAction,
+  setSuccessfulAction,
+  statusChanged,
+  setStatusChanged,
+  parentFolderId,
+}) {
   const [userData, setUserData] = useState(null);
-  const [error, setError] = useState(null);
+  const [showFileForm, setShowFileForm] = useState(null);
+  const [showFolderForm, setShowFolderForm] = useState(null);
   const [showLoader, setShowLoader] = useState(false);
   const navigate = useNavigate();
 
@@ -89,20 +102,42 @@ export default function TopBar() {
   return (
     <>
       {error === null && userData === null && <h3>Loading...</h3>}
-      {error && <h1>{error}</h1>}
       {userData && (
         <div>
+          <button>
+            <img src={AddFolderSvg} />
+          </button>
+          <button>
+            <img src={AddFileSvg} />
+          </button>
           <h2>
             {userData.userData.firstName + " " + userData.userData.lastName}
           </h2>
           {/* {showLoader && <div className={style.loader}></div>} */}
           {showLoader === false && (
             <button onClick={handleLogout} aria-label="Log out of the site">
-              <img src="" />
+              <img src={LogoutSvg} />
             </button>
+          )}
+          {showFileForm && (
+            <AddFile
+              setShowFileForm={setShowFileForm}
+              setError={setError}
+              setSuccessfulAction={setSuccessfulAction}
+            />
+          )}
+          {showFolderForm && (
+            <AddFolder
+              setError={setError}
+              setSuccessfulAction={setSuccessfulAction}
+              setShowFolderForm={setShowFolderForm}
+              parentFolderId={parentFolderId}
+            />
           )}
         </div>
       )}
+      {successfulAction && <h2>{successfulAction}</h2>}
+      {error && <h2>{error}</h2>}
     </>
   );
 }
