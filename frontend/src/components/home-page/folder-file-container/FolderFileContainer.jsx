@@ -48,7 +48,7 @@ export default function FolderFileContainer() {
       const timer = setTimeout(() => setSuccessfulAction(null), 2000);
       return () => clearTimeout(timer);
     }
-  }, [setSuccessfulAction]);
+  }, [successfulAction]);
 
   return (
     <>
