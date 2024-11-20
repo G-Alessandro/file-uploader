@@ -54,6 +54,7 @@ export default function FolderList({
   };
 
   const handleFolderEdit = async (event, id) => {
+    event.preventDefault();
     const bodyData = JSON.stringify({
       folderName: event.target.folderName.value,
       folderId: id,
