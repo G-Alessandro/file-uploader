@@ -2,13 +2,11 @@ import { useState, useEffect } from "react";
 import FolderList from "./file-list/FolderList";
 import FileList from "./file-list/FileList";
 
-export default function FolderFileContainer() {
-  const [error, setError] = useState(null);
+export default function FolderFileContainer(setError, setSuccessfulAction) {
   const [fileList, setFileList] = useState(null);
   const [folderList, setFolder] = useState(null);
   const [folderId, setFolderId] = useState(null);
   const [statusChanged, setStatusChanged] = useState(false);
-  const [successfulAction, setSuccessfulAction] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,20 +41,11 @@ export default function FolderFileContainer() {
     fetchData();
   }, [folderId, statusChanged]);
 
-  useEffect(() => {
-    if (successfulAction !== null) {
-      const timer = setTimeout(() => setSuccessfulAction(null), 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [successfulAction]);
-
   return (
     <>
       {error === null && fileList === null && folderList === null && (
         <h3>Loading folder and file...</h3>
       )}
-      {error && <h2>{error}</h2>}
-      {successfulAction && <h2>{successfulAction}</h2>}
       <FolderList
         setError={setError}
         folderList={folderList}
