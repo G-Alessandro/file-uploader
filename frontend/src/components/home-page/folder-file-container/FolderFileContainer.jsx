@@ -5,12 +5,13 @@ import FileList from "./file-list/FileList";
 export default function FolderFileContainer(
   error,
   setError,
-  setSuccessfulAction
+  setSuccessfulAction,
+  statusChanged,
+  setStatusChanged
 ) {
   const [fileList, setFileList] = useState(null);
   const [folderList, setFolder] = useState(null);
   const [folderId, setFolderId] = useState(null);
-  const [statusChanged, setStatusChanged] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
