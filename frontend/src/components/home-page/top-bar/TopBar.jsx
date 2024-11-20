@@ -124,6 +124,8 @@ export default function TopBar({
               setShowFileForm={setShowFileForm}
               setError={setError}
               setSuccessfulAction={setSuccessfulAction}
+              statusChanged={statusChanged}
+              setStatusChanged={setStatusChanged}
             />
           )}
           {showFolderForm && (
@@ -131,6 +133,8 @@ export default function TopBar({
               setError={setError}
               setSuccessfulAction={setSuccessfulAction}
               setShowFolderForm={setShowFolderForm}
+              statusChanged={statusChanged}
+              setStatusChanged={setStatusChanged}
               parentFolderId={parentFolderId}
             />
           )}
