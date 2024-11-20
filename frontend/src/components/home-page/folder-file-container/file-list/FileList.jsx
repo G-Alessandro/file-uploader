@@ -38,10 +38,11 @@ export default function FileList({
           body: body,
         }
       );
+      const data = await response.json();
       if (!response.ok) {
         setError("Unable to delete file");
       } else {
-        setSuccessfulAction("File deleted");
+        setSuccessfulAction(data.message);
         setStatusChanged(!statusChanged);
       }
     } catch (error) {
