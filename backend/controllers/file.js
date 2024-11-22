@@ -90,7 +90,7 @@ exports.file_post = [
   multer.single("file"),
   body("fileName").trim().isLength({ min: 1, max: 40 }).escape(),
   body("folderId").optional().trim().escape(),
-  body("category").optional().trim().isLength({ min: 1, max: 20 }).escape(),
+  body("category").optional().trim().escape(),
   asyncHandler(async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded" });
