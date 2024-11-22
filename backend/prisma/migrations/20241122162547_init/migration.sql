@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "File" ALTER COLUMN "category" DROP DEFAULT,
+ALTER COLUMN "category" SET DATA TYPE TEXT;
