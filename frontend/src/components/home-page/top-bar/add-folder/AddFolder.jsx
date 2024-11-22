@@ -71,7 +71,7 @@ export default function AddFolder({
         <button
           type="submit"
           onClick={() => setShowLoader(true)}
-          aria-label="Create fodler"
+          aria-label="Create folder"
         >
           Create
         </button>
