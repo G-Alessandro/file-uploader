@@ -89,7 +89,7 @@ exports.folder_file_get = asyncHandler(async (req, res) => {
 exports.file_post = [
   multer.single("file"),
   body("fileName").trim().isLength({ min: 1, max: 40 }).escape(),
-  body("fileId").optional().trim().escape(),
+  body("folderId").optional().trim().escape(),
   body("category").optional().trim().isLength({ min: 1, max: 20 }).escape(),
   asyncHandler(async (req, res) => {
     if (!req.file) {
