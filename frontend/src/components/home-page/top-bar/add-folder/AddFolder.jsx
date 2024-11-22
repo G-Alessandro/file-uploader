@@ -13,6 +13,7 @@ export default function AddFolder({
 
   const handleNewFolderForm = async (event) => {
     event.preventDefault();
+    setShowLoader(true);
     const bodyData = JSON.stringify({
       folderName: event.target.folderName.value,
       parentFolderId: parentFolderId,
@@ -70,7 +71,6 @@ export default function AddFolder({
       {!showLoader && (
         <button
           type="submit"
-          onClick={() => setShowLoader(true)}
           aria-label="Create folder"
         >
           Create
