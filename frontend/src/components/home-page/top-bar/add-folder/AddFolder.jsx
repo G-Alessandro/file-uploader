@@ -45,6 +45,7 @@ export default function AddFolder({
     } catch (error) {
       console.log("An error occurred while creating a new folder", error);
       setError("An error occurred while creating a new folder.");
+      setShowLoader(false);
     }
   };
 
