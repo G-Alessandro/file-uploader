@@ -2,7 +2,7 @@ import { useState } from "react";
 import CancelSvg from "/assets/svg/cancel.svg";
 
 export default function AddFolder({
-  setShowFileForm,
+  setShowFolderForm,
   setError,
   setSuccessfulAction,
   statusChanged,
@@ -37,7 +37,7 @@ export default function AddFolder({
         setError("Unable to create a new folder");
       } else {
         setSuccessfulAction(data.message);
-        setShowFileForm(false);
+        setShowFolderForm(false);
         setShowLoader(false);
         setStatusChanged(!statusChanged);
       }
@@ -49,7 +49,7 @@ export default function AddFolder({
 
   return (
     <form onSubmit={handleNewFolderForm}>
-      <button onClick={() => setShowFileForm(false)} aria-label="Close form">
+      <button onClick={() => setShowFolderForm(false)} aria-label="Close form">
         <img src={CancelSvg} />
       </button>
       <label htmlFor="folderName">Folder name:</label>
