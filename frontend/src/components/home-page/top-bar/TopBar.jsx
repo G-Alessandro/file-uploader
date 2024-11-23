@@ -20,7 +20,7 @@ export default function TopBar({
   const [showFolderForm, setShowFolderForm] = useState(false);
   const [showLoader, setShowLoader] = useState(false);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const authenticationCheck = async () => {
       try {
@@ -104,10 +104,10 @@ export default function TopBar({
       {error === null && userData === null && <h3>Loading...</h3>}
       {userData && (
         <div>
-          <button>
+          <button onClick={() => setShowFolderForm(true)}>
             <img src={AddFolderSvg} />
           </button>
-          <button>
+          <button onClick={() => setShowFileForm(true)}>
             <img src={AddFileSvg} />
           </button>
           <h2>
