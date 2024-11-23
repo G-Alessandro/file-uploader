@@ -16,11 +16,11 @@ export default function TopBar({
   parentFolderId,
 }) {
   const [userData, setUserData] = useState(null);
-  const [showFileForm, setShowFileForm] = useState(null);
-  const [showFolderForm, setShowFolderForm] = useState(null);
+  const [showFileForm, setShowFileForm] = useState(false);
+  const [showFolderForm, setShowFolderForm] = useState(false);
   const [showLoader, setShowLoader] = useState(false);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     const authenticationCheck = async () => {
       try {
@@ -113,7 +113,7 @@ export default function TopBar({
           <h2>
             {userData.userData.firstName + " " + userData.userData.lastName}
           </h2>
-          {/* {showLoader && <div className={style.loader}></div>} */}
+          {showLoader && <div></div>}
           {showLoader === false && (
             <button onClick={handleLogout} aria-label="Log out of the site">
               <img src={LogoutSvg} />
@@ -121,11 +121,12 @@ export default function TopBar({
           )}
           {showFileForm && (
             <AddFile
-              setShowFileForm={setShowFileForm}
               setError={setError}
               setSuccessfulAction={setSuccessfulAction}
+              setShowFileForm={setShowFileForm}
               statusChanged={statusChanged}
               setStatusChanged={setStatusChanged}
+              parentFolderId={parentFolderId}
             />
           )}
           {showFolderForm && (
