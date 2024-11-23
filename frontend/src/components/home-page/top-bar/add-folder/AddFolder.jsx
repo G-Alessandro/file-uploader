@@ -17,7 +17,7 @@ export default function AddFolder({
     const bodyData = JSON.stringify({
       folderName: event.target.folderName.value,
       parentFolderId: parentFolderId,
-      shareFolder: event.target.shareFolder.value === "true" ? true : false,
+      shareFolder: event.target.shareFolder.value,
     });
     try {
       const response = await fetch(
