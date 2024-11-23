@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import FolderList from "./file-list/FolderList";
+import FolderList from "./folder-list/FolderList";
 import FileList from "./file-list/FileList";
 
 export default function FolderFileContainer(
@@ -53,20 +53,29 @@ export default function FolderFileContainer(
       {error === null && fileList === null && folderList === null && (
         <h3>Loading folder and file...</h3>
       )}
-      <FolderList
-        setError={setError}
-        folderList={folderList}
-        setFolderId={setFolderId}
-        statusChanged={statusChanged}
-        setStatusChanged={setStatusChanged}
-      />
-      <FileList
-        setError={setError}
-        fileList={fileList}
-        statusChanged={statusChanged}
-        setStatusChanged={setStatusChanged}
-        setSuccessfulAction={setSuccessfulAction}
-      />
+      {!folderList && !fileList && (
+        <h2>
+          Use the buttons on the top bar to create a folder or save a file!
+        </h2>
+      )}
+      {folderList && (
+        <FolderList
+          setError={setError}
+          folderList={folderList}
+          setFolderId={setFolderId}
+          statusChanged={statusChanged}
+          setStatusChanged={setStatusChanged}
+        />
+      )}
+      {fileList && (
+        <FileList
+          setError={setError}
+          fileList={fileList}
+          statusChanged={statusChanged}
+          setStatusChanged={setStatusChanged}
+          setSuccessfulAction={setSuccessfulAction}
+        />
+      )}
     </>
   );
 }
