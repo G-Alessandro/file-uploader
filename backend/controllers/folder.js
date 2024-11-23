@@ -73,7 +73,7 @@ exports.folder_post = [
     } catch (error) {
       console.error(error);
       return res.status(500).json({
-        error: "An error occurred while saving the folder.",
+        error: "An error occurred while creating a new folder.",
       });
     }
   }),
