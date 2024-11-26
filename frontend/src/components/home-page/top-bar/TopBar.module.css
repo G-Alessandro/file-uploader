@@ -1,0 +1,77 @@
+.topBar {
+  padding: 10px 5px;
+  border-bottom: 1px solid rgba(61, 194, 255, 0.342);
+  box-shadow: 0px 1px 2px rgba(61, 194, 255, 0.267);
+}
+
+.topBarLoading {
+  justify-self: center;
+  position: relative;
+}
+
+.topBarContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.topBarContainer > button,
+.buttonContainer > button {
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  transition-duration: 0.2s;
+}
+
+.topBarContainer > button:hover,
+.buttonContainer > button:hover {
+  transform: scale(1.2);
+}
+
+.topBarContainer > button > img,
+.buttonContainer > button > img {
+  height: 40px;
+  width: 40px;
+}
+
+.buttonContainer {
+  margin-right: 150px;
+}
+
+.buttonContainer > button:first-child {
+  margin-right: 35px;
+}
+
+.topBarContainer > h2 {
+  margin-right: 20px;
+}
+
+.topBarContainer > .loader {
+  border: 12px solid #d4d4d4;
+  border-radius: 50%;
+  border-top: 12px solid #3498db;
+  align-self: center;
+  width: 15px;
+  height: 15px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

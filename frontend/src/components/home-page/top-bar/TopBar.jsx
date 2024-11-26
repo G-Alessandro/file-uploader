@@ -5,6 +5,7 @@ import AddFolderSvg from "/assets/svg/add-folder.svg";
 import AddFileSvg from "/assets/svg/add-file.svg";
 import AddFile from "./add-file/AddFile";
 import AddFolder from "./add-folder/AddFolder";
+import style from "./TopBar.module.css";
 
 export default function TopBar({
   error,
@@ -99,21 +100,36 @@ export default function TopBar({
     }
   };
 
+  const showForm = (form) => {
+    if (form === "folder form") {
+      setShowFileForm(false);
+      setShowFolderForm(!showFolderForm);
+    } else {
+      setShowFolderForm(false);
+      setShowFileForm(!showFileForm);
+    }
+  };
+
   return (
-    <>
-      {error === null && userData === null && <h3>Loading...</h3>}
+    <div className={style.topBar}>
+      {error === null && userData === null && (
+        <h3 className={style.topBarLoading}>Loading...</h3>
+      )}
       {userData && (
-        <div>
-          <button onClick={() => setShowFolderForm(true)}>
-            <img src={AddFolderSvg} />
-          </button>
-          <button onClick={() => setShowFileForm(true)}>
-            <img src={AddFileSvg} />
-          </button>
+        <div className={style.topBarContainer}>
+          <div className={style.buttonContainer}>
+            <button onClick={() => showForm("folder form")}>
+              <img src={AddFolderSvg} />
+            </button>
+            <button onClick={() => showForm("file form")}>
+              <img src={AddFileSvg} />
+            </button>
+          </div>
+
           <h2>
             {userData.userData.firstName + " " + userData.userData.lastName}
           </h2>
-          {showLoader && <div></div>}
+          {showLoader && <div className={style.loader}></div>}
           {showLoader === false && (
             <button onClick={handleLogout} aria-label="Log out of the site">
               <img src={LogoutSvg} />
@@ -143,6 +159,6 @@ export default function TopBar({
       )}
       {successfulAction && <h2>{successfulAction}</h2>}
       {error && <h2>{error}</h2>}
-    </>
+    </div>
   );
 }
