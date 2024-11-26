@@ -1,5 +1,6 @@
 import { useState } from "react";
 import CancelSvg from "/assets/svg/cancel.svg";
+import style from "./AddFolder.module.css";
 
 export default function AddFolder({
   setShowFolderForm,
@@ -50,34 +51,41 @@ export default function AddFolder({
   };
 
   return (
-    <form onSubmit={handleNewFolderForm}>
-      <button onClick={() => setShowFolderForm(false)} aria-label="Close form">
+    <form onSubmit={handleNewFolderForm} className={style.folderForm}>
+      <button
+        onClick={() => setShowFolderForm(false)}
+        className={style.folderFormCancelBtn}
+        aria-label="Close form"
+      >
         <img src={CancelSvg} />
       </button>
       <label htmlFor="folderName">Folder name:</label>
       <input type="text" name="folderName" id="folderName" required />
 
       <p>Is this a shared folder?</p>
-      <label htmlFor="yes">yes</label>
-      <input type="radio" id="yes" name="shareFolder" value="true" />
-      <label htmlFor="no">no</label>
-      <input
-        type="radio"
-        id="no"
-        name="shareFolder"
-        value="false"
-        defaultChecked
-      />
+      <div className={style.inputRadioContainer}>
+        <label htmlFor="yes">Yes</label>
+        <input type="radio" id="yes" name="shareFolder" value="true" />
+        <label htmlFor="no">No</label>
+        <input
+          type="radio"
+          id="no"
+          name="shareFolder"
+          value="false"
+          defaultChecked
+        />
+      </div>
 
       {!showLoader && (
         <button
           type="submit"
+          className={style.folderFormSubmitBtn}
           aria-label="Create folder"
         >
-          Create
+          Save
         </button>
       )}
-      {showLoader && <div></div>}
+      {showLoader && <div className={style.loader}></div>}
     </form>
   );
 }
