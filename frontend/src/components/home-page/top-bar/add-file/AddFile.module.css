@@ -1,0 +1,158 @@
+.fileForm {
+  position: absolute;
+  top: 80px;
+  display: flex;
+  flex-direction: column;
+  margin-right: 30%;
+  border: 2px solid #d9b78b;
+  padding: 8px 10px;
+  border-radius: 5px;
+}
+
+.fileFormCancelBtn {
+  align-self: flex-end;
+  height: 25px;
+  width: 25px;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  transition-duration: 0.2s;
+}
+
+.fileFormCancelBtn > img {
+  height: 100%;
+  width: 100%;
+}
+
+.fileFormCancelBtn:hover {
+  transform: scale(1.2);
+}
+
+.previewFileFormContainer {
+  display: flex;
+}
+
+.previewFileImageContainer > img {
+  width: 200px;
+  max-height: 200px;
+  border: 2px solid rgb(206, 206, 206);
+  margin-bottom: 25px;
+}
+
+.fileDataContainer {
+  display: flex;
+  flex-direction: column;
+  margin-left: 40px;
+}
+
+.fileDataContainer > label {
+  font-weight: 700;
+  font-size: 16px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.fileDataContainer > select,
+.fileDataContainer > input {
+  width: 300px;
+  margin-bottom: 5px;
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #eeeeee;
+  border: 2px solid #ffffff;
+  outline: none;
+}
+
+.fileDataContainer > select:active,
+.fileDataContainer > input:focus {
+  border: 2px solid #68be37;
+}
+
+.fileBtnContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.fileBtnContainer > input[type="file"]::file-selector-button {
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #eeeeee;
+  border: none;
+  cursor: pointer;
+}
+
+.fileBtnContainer > input[type="file"]::file-selector-button:hover {
+  color: white;
+  background-color: #d9b78b;
+}
+
+.fileBtnContainer > button {
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #eeeeee;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.fileBtnContainer > button:hover {
+  color: white;
+  background-color: #ff8989;
+  outline: none;
+}
+
+.fileDataContainer > select {
+  width: 100px;
+}
+
+.fileFormSubmitBtn {
+  align-self: center;
+  width: fit-content;
+  color: white;
+  font-weight: 700;
+  font-size: 20px;
+  padding: 5px 10px;
+  margin-top: 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: rgb(47, 130, 255);
+  transition-duration: 0.2s;
+}
+
+.fileFormSubmitBtn:hover {
+  transform: scale(1.1);
+}
+
+.fileDataContainer > .loader {
+  border: 16px solid #d4d4d4;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  align-self: center;
+  width: 15px;
+  height: 15px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

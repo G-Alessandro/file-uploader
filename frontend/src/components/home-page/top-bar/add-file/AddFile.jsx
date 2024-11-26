@@ -1,8 +1,8 @@
 import { useState } from "react";
 import CancelSvg from "/assets/svg/cancel.svg";
-import FileLabelSvg from "/assets/svg/file-label.svg";
 import MissingFileSvg from "/assets/svg/missing-file.svg";
 import SelectedFileSvg from "/assets/svg/selected-file.svg";
+import style from "./AddFile.module.css";
 
 export default function AddFile({
   setShowFileForm,
@@ -70,46 +70,54 @@ export default function AddFile({
   };
 
   return (
-    <form onSubmit={handleNewFileForm}>
-      <button onClick={() => setShowFileForm(false)} aria-label="close form">
+    <form onSubmit={handleNewFileForm} className={style.fileForm}>
+      <button
+        onClick={() => setShowFileForm(false)}
+        className={style.fileFormCancelBtn}
+        aria-label="close form"
+      >
         <img src={CancelSvg} />
       </button>
 
-      <div>
-        <img src={previewFileImage} />
-        <div>
-          <label htmlFor="newFile" aria-label="add file">
-            <img src={FileLabelSvg} />
-          </label>
-          <input
-            type="file"
-            name="newFile"
-            id="newFile"
-            onChange={handleFileChange}
-          />
-          <button onClick={() => handleCancelFileImage()}>Cancel</button>
+      <div className={style.previewFileFormContainer}>
+        <div className={style.previewFileImageContainer}>
+          <img src={previewFileImage} />
         </div>
-      </div>
 
-      <div>
-        <label htmlFor="fileName">File name:</label>
-        <input type="text" name="fileName" id="fileName" required />
+        <div className={style.fileDataContainer}>
+          <label htmlFor="fileName">File name:</label>
+          <input type="text" name="fileName" id="fileName" required />
 
-        <label htmlFor="category">Category:</label>
-        <select name="category" id="category">
-          <option value="file">File</option>
-          <option value="image">Image</option>
-          <option value="music">Music</option>
-          <option value="pdf">PDF</option>
-          <option value="video">Video</option>
-        </select>
+          <div className={style.fileBtnContainer}>
+            <input
+              type="file"
+              name="newFile"
+              id="newFile"
+              onChange={handleFileChange}
+            />
+            <button onClick={() => handleCancelFileImage()}>Cancel</button>
+          </div>
 
-        {!showLoader && (
-          <button type="submit" aria-label="Create folder">
-            Save
-          </button>
-        )}
-        {showLoader && <div></div>}
+          <label htmlFor="category">Category:</label>
+          <select name="category" id="category">
+            <option value="file">File</option>
+            <option value="image">Image</option>
+            <option value="music">Music</option>
+            <option value="pdf">PDF</option>
+            <option value="video">Video</option>
+          </select>
+
+          {!showLoader && (
+            <button
+              type="submit"
+              className={style.fileFormSubmitBtn}
+              aria-label="Create folder"
+            >
+              Save
+            </button>
+          )}
+          {showLoader && <div className={style.loader}></div>}
+        </div>
       </div>
     </form>
   );
