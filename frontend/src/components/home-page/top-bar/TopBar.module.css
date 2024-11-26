@@ -75,3 +75,18 @@
     transform: rotate(360deg);
   }
 }
+
+.error,
+.successfulAction {
+  color: white;
+  position: absolute;
+  top: 0px;
+  margin-left: 40%;
+  background-color: red;
+  padding: 5px 10px;
+  border-radius: 0px 0px 5px 5px;
+}
+
+.successfulAction {
+  background-color: rgb(0, 173, 0);
+}
