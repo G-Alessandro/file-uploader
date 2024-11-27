@@ -157,8 +157,10 @@ export default function TopBar({
           )}
         </div>
       )}
-      {successfulAction && <h2>{successfulAction}</h2>}
-      {error && <h2>{error}</h2>}
+      {successfulAction && (
+        <h2 className={style.successfulAction}>{successfulAction}</h2>
+      )}
+      {error && <h2 className={style.error}>{error}</h2>}
     </div>
   );
 }
