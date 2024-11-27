@@ -4,6 +4,7 @@ import DeleteSvg from "/assets/svg/delete.svg";
 import EditSvg from "/assets/svg/edit.svg";
 import CancelSvg from "/assets/svg/cancel.svg";
 import FolderSvg from "/assets/svg/folder.svg";
+import style from "./FolderList.module.css";
 
 export default function FolderList({
   setError,
@@ -13,13 +14,19 @@ export default function FolderList({
   statusChanged,
   setStatusChanged,
 }) {
+  const [foldersEditName, setFoldersEditName] = useState(folderList);
   const [showFolderOptions, setShowFolderOptions] = useState(
     Array(folderList.length).fill(false)
   );
 
-  const handleToggleOption = (index) => {
+  const handleToggleOption = (index, basicName) => {
     setShowFolderOptions((prevOptions) =>
-      prevOptions.map((option, i) => (i === index ? !option : option))
+      prevOptions.map((option, i) => (i === index ? !option : false))
+    );
+    setFoldersEditName((prevFolders) =>
+      prevFolders.map((folder, i) =>
+        i === index ? { ...folder, name: basicName } : folder
+      )
     );
   };
 
@@ -53,7 +60,7 @@ export default function FolderList({
     }
   };
 
-  const handleFolderEdit = async (event, id) => {
+  const handleFolderEdit = async (event, index, id) => {
     event.preventDefault();
     const bodyData = JSON.stringify({
       folderName: event.target.folderName.value,
@@ -76,6 +83,7 @@ export default function FolderList({
       if (!response.ok) {
         setError("An error occurred while changing the folder name.");
       } else {
+        handleToggleOption(index);
         setStatusChanged(!statusChanged);
         setSuccessfulAction(data.message);
       }
@@ -85,62 +93,81 @@ export default function FolderList({
     }
   };
 
+  const handleInputChange = (e, id) => {
+    const { value } = e.target;
+    setFoldersEditName((prevFolders) =>
+      prevFolders.map((folder) =>
+        folder.id === id ? { ...folder, name: value } : folder
+      )
+    );
+  };
+
   return (
-    <div>
-      {folderList.map((index, folder) => {
+    <div className={style.foldersList}>
+      {folderList.map((folder, index) => {
         return (
-          <div key={folder.id}>
-            {showFolderOptions[index] && (
-              <button
-                onClick={() => handleFolderDelete(folder.id)}
-                aria-label={`Click to delete the folder ${folder.name}`}
-              >
-                <img src={DeleteSvg} />
-              </button>
-            )}
-
-            <button
-              onClick={() => handleToggleOption(index)}
-              aria-label={
-                showFolderOptions[index]
-                  ? `Click to cancel folder ${folder.name} edit`
-                  : `Click to edit the folder ${folder.name}`
-              }
-            >
-              {showFolderOptions[index] ? (
-                <img src={CancelSvg} />
-              ) : (
-                <img src={EditSvg} />
+          <div key={folder.id} className={style.folderContainer}>
+            <div className={style.folderEditDataContainer}>
+              {!showFolderOptions[index] && (
+                <div className={style.deleteFolderSpace}></div>
               )}
-            </button>
-
-            <button
-              onClick={() => setFolderId(folder.id)}
-              aria-label={`Click to view the file inside the folder ${folder.name}`}
-            >
-              <img src={FolderSvg} />
-
-              {!showFolderOptions[index] && <p>{folder.name}</p>}
-
               {showFolderOptions[index] && (
-                <form onSubmit={(event) => handleFolderEdit(event, folder.id)}>
-                  <label htmlFor="folderName"></label>
-                  <input
-                    type="text"
-                    name="folderName"
-                    id="folderName"
-                    placeholder={folder.name}
-                  />
-                  <button
-                    type="submit"
-                    onClick={() => handleToggleOption(index)}
-                    aria-label={`Click to save the new folder name`}
-                  >
-                    <img src={Checkmark} />
-                  </button>
-                </form>
+                <button
+                  className={style.deleteFolder}
+                  onClick={() => handleFolderDelete(folder.id)}
+                  aria-label={`Click to delete the folder ${folder.name}`}
+                >
+                  <img src={DeleteSvg} />
+                </button>
               )}
-            </button>
+
+              <button
+                className={style.folderBtn}
+                onClick={() => setFolderId(folder.id)}
+                aria-label={`Click to view the file inside the folder ${folder.name}`}
+              >
+                <img src={FolderSvg} />
+
+                {!showFolderOptions[index] && <p>{folder.name}</p>}
+              </button>
+
+              <button
+                className={style.folderEditBtn}
+                onClick={() => handleToggleOption(index, folder.name)}
+                aria-label={
+                  showFolderOptions[index]
+                    ? `Click to cancel folder ${folder.name} edit`
+                    : `Click to edit the folder ${folder.name}`
+                }
+              >
+                {showFolderOptions[index] ? (
+                  <img src={CancelSvg} />
+                ) : (
+                  <img src={EditSvg} />
+                )}
+              </button>
+            </div>
+
+            {showFolderOptions[index] && (
+              <form
+                onSubmit={(event) => handleFolderEdit(event, index, folder.id)}
+                className={style.folderEditForm}
+              >
+                <input
+                  type="text"
+                  name="folderName"
+                  id="folderName"
+                  value={foldersEditName[index].name}
+                  onChange={(e) => handleInputChange(e, folder.id)}
+                />
+                <button
+                  type="submit"
+                  aria-label={`Click to save the new folder name`}
+                >
+                  <img src={Checkmark} />
+                </button>
+              </form>
+            )}
           </div>
         );
       })}
