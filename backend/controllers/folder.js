@@ -51,16 +51,16 @@ exports.folder_get = [
 exports.folder_post = [
   body("folderName").isLength({ min: 1, max: 40 }).trim().escape(),
   body("parentFolderId").optional().trim().escape(),
-  body("shareFolder").isBoolean().trim().escape(),
+  body("shareFolder").trim().escape(),
   asyncHandler(async (req, res) => {
     handleValidationErrors(req, res);
 
     try {
       const userId = req.user.id;
       const parentFolderId = req.body.parentFolderId
-        ? req.body.parentFolderId
+        ? Number(req.body.parentFolderId)
         : null;
-      const shareFolder = req.body.shareFolder;
+      const shareFolder = req.body.shareFolder === "true" ? true : false;
       await prisma.folder.create({
         data: {
           name: req.body.folderName,
@@ -86,7 +86,7 @@ exports.folder_put = [
     handleValidationErrors(req, res);
 
     try {
-      const folderId = req.body.folderId;
+      const folderId = Number(req.body.folderId);
       await prisma.folder.update({
         where: {
           id: folderId,
@@ -111,7 +111,7 @@ exports.folder_delete = [
     handleValidationErrors(req, res);
 
     try {
-      const folderId = req.body.folderId;
+      const folderId = Number(req.body.folderId);
       await prisma.folder.delete({
         where: {
           id: folderId,
