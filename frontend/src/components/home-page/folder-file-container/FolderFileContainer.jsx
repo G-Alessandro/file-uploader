@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import FolderList from "./folder-list/FolderList";
 import FileList from "./file-list/FileList";
 
-export default function FolderFileContainer(
+export default function FolderFileContainer({
   error,
   setError,
   setSuccessfulAction,
   statusChanged,
   setStatusChanged,
-  setParentFolderId
-) {
+  setParentFolderId,
+}) {
   const [fileList, setFileList] = useState(null);
   const [folderList, setFolder] = useState(null);
   const [folderId, setFolderId] = useState(null);
