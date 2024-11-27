@@ -32,7 +32,7 @@ export default function FolderFileContainer(
             mode: "cors",
           }
         );
-        const data = response.json();
+        const data = await response.json();
         if (!data) {
           setError(data.error);
         } else {
