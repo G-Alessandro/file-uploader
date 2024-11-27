@@ -1,0 +1,89 @@
+.foldersList {
+  display: flex;
+  gap: 15px;
+}
+
+.folderContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.folderEditDataContainer {
+  display: flex;
+}
+
+.deleteFolderSpace {
+  width: 22px;
+}
+
+.folderEditBtn,
+.deleteFolder {
+  align-self: flex-start;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+  transition-duration: 0.2s;
+}
+
+.deleteFolder {
+  background-color: red;
+  padding: 2px;
+  border-radius: 4px;
+}
+
+.folderEditBtn:hover,
+.deleteFolder:hover {
+  transform: scale(1.1);
+}
+
+.deleteFolder > img {
+  width: 20px;
+  height: 20px;
+}
+
+.folderEditBtn > img {
+  width: 25px;
+  height: 25px;
+}
+
+.folderBtn {
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.folderBtn > img {
+  width: 60px;
+  height: 60px;
+}
+
+.folderEditForm {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.folderEditForm > input {
+  color: black;
+  width: 60px;
+  font-size: 12px;
+  padding: 0px 1px;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.folderEditForm > button {
+  background-color: white;
+  border: 2px solid rgb(201, 201, 201);
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.folderEditForm > button:hover {
+  background-color: rgb(233, 233, 233);
+}
+
+.folderEditForm > button > img {
+  width: 20px;
+  height: 20px;
+}
