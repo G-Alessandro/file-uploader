@@ -65,6 +65,7 @@ export default function FolderFileContainer({
           setFolderId={setFolderId}
           statusChanged={statusChanged}
           setStatusChanged={setStatusChanged}
+          setSuccessfulAction={setSuccessfulAction}
         />
       )}
       {fileList && (
