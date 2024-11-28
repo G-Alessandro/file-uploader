@@ -37,7 +37,7 @@ model File {
   size      String
   url       String
   public_id String
-  createdAt DateTime    @default(now())
+  createdAt String    
   user      UserAccount @relation(fields: [userId], references: [id])
   userId    Int
   folder    Folder?     @relation(fields: [folderId], references: [id])
