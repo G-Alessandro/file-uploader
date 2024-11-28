@@ -20,6 +20,8 @@ export default function FolderFileContainer({
       if (folderId !== null) {
         fetchPath = `get-folders/${folderId}`;
         setParentFolderId(folderId);
+      } else if (folderId === "shared file") {
+        fetchPath = "shared-files";
       } else {
         fetchPath = "all-folders-files";
       }
