@@ -18,7 +18,6 @@ export default function FolderList({
   const [showFolderOptions, setShowFolderOptions] = useState(
     Array(folderList.length).fill(false)
   );
-
   const handleToggleOption = (index, basicName) => {
     setShowFolderOptions((prevOptions) =>
       prevOptions.map((option, i) => (i === index ? !option : false))
@@ -104,6 +103,15 @@ export default function FolderList({
 
   return (
     <div className={style.foldersList}>
+      <button
+        className={style.folderBtn}
+        onClick={() => setFolderId("shared file")}
+        aria-label={"Click to view all the shared file inside the folder"}
+      >
+        <img src={FolderSvg} />
+
+        <p>All files shared by users</p>
+      </button>
       {folderList.map((folder, index) => {
         return (
           <div key={folder.id} className={style.folderContainer}>
