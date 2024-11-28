@@ -39,6 +39,7 @@ export default function AddFile({
       const data = await response.json();
       if (!response.ok) {
         setError("Unable to save a new file");
+        setShowLoader(false);
       } else {
         setSuccessfulAction(data.message);
         setShowFileForm(false);
