@@ -73,7 +73,6 @@ exports.folder_file_get = asyncHandler(async (req, res) => {
         createdAt: true,
       },
     });
-
     res.status(200).json({
       files: allFile,
       folders: allFolder,
@@ -90,7 +89,7 @@ exports.file_post = [
   multer.single("file"),
   body("fileName").trim().isLength({ min: 1, max: 40 }).escape(),
   body("folderId").optional().trim().escape(),
-  body("category").optional().trim().escape(),
+  body("category").trim().escape(),
   asyncHandler(async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded" });
@@ -100,9 +99,9 @@ exports.file_post = [
 
     try {
       const userId = req.user.id;
-      const folderId = req.body.folderId ? req.body.folderId : null;
-      const fileCategory = req.user.category;
-
+      const folderId =
+        req.body.folderId === "null" ? null : Number(req.body.folderId);
+      const fileCategory = req.body.category;
       const newFile = await cloudinary.uploader.upload(req.file.path, {
         folder: "fileUploader",
       });
@@ -138,7 +137,7 @@ exports.file_delete = [
 
     try {
       const userId = req.user.id;
-      const fileId = req.body.fileId;
+      const fileId = Number(req.body.fileId);
       const fileData = await prisma.file.findUnique({
         where: {
           id: fileId,
