@@ -106,13 +106,27 @@ exports.file_post = [
         folder: "fileUploader",
       });
 
+      const currentDate = new Date();
+      const formattedDate = currentDate.toLocaleString("en-EN", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      });
+
+      const sizeInBytes = req.file.size;
+      const sizeInMB = sizeInBytes / (1024 * 1024);
+
       await prisma.file.create({
         data: {
           name: req.body.fileName,
           category: fileCategory,
-          size: req.file.size.toString(),
+          size: `${sizeInMB.toFixed(2)} MB`,
           url: newFile.secure_url,
           public_id: newFile.public_id,
+          createdAt: formattedDate,
           userId: userId,
           folderId: folderId,
         },
