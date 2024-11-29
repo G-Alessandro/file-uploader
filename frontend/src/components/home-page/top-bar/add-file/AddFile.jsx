@@ -95,8 +95,11 @@ export default function AddFile({
               name="newFile"
               id="newFile"
               onChange={handleFileChange}
+              required
             />
-            <button onClick={handleCancelFileImage}>Cancel</button>
+            <button type="button" onClick={handleCancelFileImage}>
+              Cancel
+            </button>
           </div>
 
           <label htmlFor="category">Category:</label>
