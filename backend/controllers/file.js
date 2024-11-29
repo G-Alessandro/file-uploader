@@ -102,7 +102,10 @@ exports.file_post = [
       const folderId =
         req.body.folderId === "null" ? null : Number(req.body.folderId);
       const fileCategory = req.body.category;
+
+      let resource_type = "auto";
       const newFile = await cloudinary.uploader.upload(req.file.path, {
+        resource_type: resource_type,
         folder: "fileUploader",
       });
 
@@ -118,7 +121,6 @@ exports.file_post = [
 
       const sizeInBytes = req.file.size;
       const sizeInMB = sizeInBytes / (1024 * 1024);
-
       await prisma.file.create({
         data: {
           name: req.body.fileName,
@@ -159,9 +161,22 @@ exports.file_delete = [
         },
         select: {
           public_id: true,
+          url: true,
         },
       });
-      await cloudinary.uploader.destroy(fileData.public_id);
+
+      let fileType = "auto";
+      if (fileData.url.includes("/image/upload/")) {
+        fileType = "image";
+      } else if (fileData.url.includes("/video/upload/")) {
+        fileType = "video";
+      } else if (fileData.url.includes("/audio/upload/")) {
+        fileType = "audio";
+      }
+
+      await cloudinary.uploader.destroy(fileData.public_id, {
+        resource_type: fileType,
+      });
       await prisma.file.delete({
         where: {
           id: fileId,
@@ -191,15 +206,24 @@ exports.file_download_get = [
         select: {
           name: true,
           public_id: true,
+          url: true,
         },
       });
 
+      let fileType = "auto";
+      if (fileData.url.includes("/image/upload/")) {
+        fileType = "image";
+      } else if (fileData.url.includes("/video/upload/")) {
+        fileType = "video";
+      } else if (fileData.url.includes("/audio/upload/")) {
+        fileType = "audio";
+      }
+
       const downloadUrl = cloudinary.url(fileData.public_id, {
-        resource_type: "auto",
+        resource_type: fileType,
         flags: "attachment",
         attachment: fileData.name,
       });
-
       res.status(200).json({
         downloadUrl,
       });
