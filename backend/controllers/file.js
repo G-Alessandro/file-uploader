@@ -183,7 +183,7 @@ exports.file_download_get = [
     handleValidationErrors(req, res);
 
     try {
-      const fileId = req.params.id;
+      const fileId = Number(req.params.id);
       const fileData = await prisma.file.findUnique({
         where: {
           id: fileId,

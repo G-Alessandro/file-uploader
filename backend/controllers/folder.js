@@ -11,7 +11,7 @@ exports.folder_get = [
 
     try {
       const userId = req.user.id;
-      const folderId = req.params.id;
+      const folderId = Number(req.params.id);
 
       const subFolder = await prisma.folder.findMany({
         where: {
