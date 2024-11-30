@@ -20,11 +20,11 @@ export default function FileList({
   const handleShowLoader = (index, loaderElement) => {
     if (loaderElement === "download") {
       setShowDownloadLoader((prevLoader) =>
-        prevLoader.map((loader, i) => (i === index ? !loader : false))
+        prevLoader.map((loader, i) => (i === index ? !loader : loader))
       );
     } else {
       setShowDeleteLoader((prevLoader) =>
-        prevLoader.map((loader, i) => (i === index ? !loader : false))
+        prevLoader.map((loader, i) => (i === index ? !loader : loader))
       );
     }
   };
