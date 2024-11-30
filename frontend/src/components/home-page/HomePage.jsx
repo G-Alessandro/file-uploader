@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import TopBar from "./top-bar/TopBar";
 import FolderFileContainer from "./folder-file-container/FolderFileContainer";
-// import style from "./HomePage.module.css";
 
 export default function HomePage() {
   const [error, setError] = useState(null);
