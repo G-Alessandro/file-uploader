@@ -9,6 +9,7 @@ export default function FolderFileContainer({
   setSuccessfulAction,
   statusChanged,
   setStatusChanged,
+  parentFolderId,
   setParentFolderId,
 }) {
   const [fileList, setFileList] = useState(null);
@@ -65,6 +66,7 @@ export default function FolderFileContainer({
         <FolderList
           setError={setError}
           folderList={folderList}
+          parentFolderId={parentFolderId}
           setFolderId={setFolderId}
           statusChanged={statusChanged}
           setStatusChanged={setStatusChanged}

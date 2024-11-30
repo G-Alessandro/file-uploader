@@ -39,6 +39,7 @@ export default function HomePage() {
         setSuccessfulAction={setSuccessfulAction}
         statusChanged={statusChanged}
         setStatusChanged={setStatusChanged}
+        parentFolderId={parentFolderId}
         setParentFolderId={setParentFolderId}
       />
     </div>
