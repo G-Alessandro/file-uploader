@@ -13,13 +13,13 @@ export default function FolderFileContainer({
   setParentFolderId,
 }) {
   const [fileList, setFileList] = useState(null);
-  const [folderList, setFolder] = useState(null);
+  const [folderList, setFolderList] = useState(null);
   const [folderId, setFolderId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       let fetchPath;
-      if (folderId !== null) {
+      if (folderId >= 0) {
         fetchPath = `get-folders/${folderId}`;
         setParentFolderId(folderId);
       } else if (folderId === "shared file") {
@@ -40,8 +40,17 @@ export default function FolderFileContainer({
         if (!data) {
           setError(data.error);
         } else {
-          setFileList(data.files);
-          setFolder(data.folders);
+          if (data.files) {
+            setFileList(data.files);
+          }
+
+          if (data.folders) {
+            setFolderList(data.folders);
+          }
+
+          if (fetchPath === "shared-files") {
+            setFolderList(null);
+          }
         }
       } catch (error) {
         console.log("An error occurred while finding data:", error);
