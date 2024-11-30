@@ -1,0 +1,92 @@
+.fileListContainer {
+  width: 1000px;
+  margin-top: 30px;
+  border-collapse: collapse;
+}
+
+.fileListContainer > thead > tr {
+  border-bottom: 2px solid rgb(201, 201, 201);
+}
+
+.fileDataContainer > td {
+  height: 50px;
+  text-align: center;
+  border-bottom: 1px solid rgb(216, 216, 216);
+}
+
+.fileDataContainer > td > img {
+  width: 30px;
+  max-height: 30px;
+}
+
+.fileDownloadBtn,
+.fileDeleteBtn {
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition-duration: 0.2s;
+}
+
+.fileDownloadBtn:hover,
+.fileDeleteBtn:hover {
+  transform: scale(1.1);
+}
+
+.fileDownloadBtn {
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: rgb(0, 110, 255);
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.fileDeleteBtn {
+  background-color: red;
+  padding: 2px;
+  border-radius: 4px;
+}
+
+.fileDeleteBtn > img {
+  width: 20px;
+  max-height: 20px;
+}
+
+.tableDataDownloadContainer {
+  min-width: 100px;
+}
+
+.tableDataDeleteContainer {
+  min-width: 50px;
+}
+
+.fileDataContainer > td > .loader {
+  justify-self: center;
+  border: 10px solid #d4d4d4;
+  border-radius: 50%;
+  border-top: 10px solid #3498db;
+  align-self: center;
+  width: 15px;
+  height: 15px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
