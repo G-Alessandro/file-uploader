@@ -1,3 +1,8 @@
+import { useState } from "react";
+import FileImage from "/assets/svg/file-image.svg";
+import DeleteSvg from "/assets/svg/delete.svg";
+import style from "./FileList.module.css";
+
 export default function FileList({
   setError,
   fileList,
@@ -5,7 +10,27 @@ export default function FileList({
   setStatusChanged,
   setSuccessfulAction,
 }) {
-  const handleDownloadFile = async (fileId) => {
+  const [showDeleteLoader, setShowDeleteLoader] = useState(
+    Array(fileList.length).fill(false)
+  );
+  const [showDownloadLoader, setShowDownloadLoader] = useState(
+    Array(fileList.length).fill(false)
+  );
+
+  const handleShowLoader = (index, loaderElement) => {
+    if (loaderElement === "download") {
+      setShowDownloadLoader((prevLoader) =>
+        prevLoader.map((loader, i) => (i === index ? !loader : false))
+      );
+    } else {
+      setShowDeleteLoader((prevLoader) =>
+        prevLoader.map((loader, i) => (i === index ? !loader : false))
+      );
+    }
+  };
+
+  const handleDownloadFile = async (index, fileId) => {
+    handleShowLoader(index, "download");
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/download-files/${fileId}`
@@ -14,8 +39,10 @@ export default function FileList({
 
       if (data.downloadUrl) {
         window.location.href = data.downloadUrl;
+        handleShowLoader(index, "download");
       } else {
         setError("Error starting download.");
+        handleShowLoader(index, "download");
       }
     } catch (error) {
       console.error("Download error:", error);
@@ -23,7 +50,8 @@ export default function FileList({
     }
   };
 
-  const handleDeleteFile = async (fileId) => {
+  const handleDeleteFile = async (index, fileId) => {
+    handleShowLoader(index, "delete");
     const body = JSON.stringify({ fileId: fileId });
     try {
       const response = await fetch(
@@ -41,7 +69,9 @@ export default function FileList({
       const data = await response.json();
       if (!response.ok) {
         setError("Unable to delete file");
+        handleShowLoader(index, "delete");
       } else {
+        handleShowLoader(index, "delete");
         setSuccessfulAction(data.message);
         setStatusChanged(!statusChanged);
       }
@@ -52,31 +82,63 @@ export default function FileList({
   };
 
   return (
-    <div>
-      {fileList.map((file) => {
-        return (
-          <div key={file.id}>
-            <img src="" />
-            <h3>{file.name}</h3>
-            <p>{file.category}</p>
-            <p>{file.createdAt}</p>
-            <p>{file.size}</p>
-            <button
-              onClick={() => handleDownloadFile(file.id)}
-              aria-label={`Click to download the file ${file.name}`}
-            >
-              Download
-            </button>
-
-            <button
-              onClick={() => handleDeleteFile(file.id)}
-              aria-label={`Delete file ${file.name}`}
-            >
-              <img />
-            </button>
-          </div>
-        );
-      })}
-    </div>
+    <table className={style.fileListContainer}>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Uploaded</th>
+          <th>Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        {fileList.map((file, index) => {
+          return (
+            <tr key={file.id} className={style.fileDataContainer}>
+              <td>
+                <img
+                  src={
+                    /\.(jpg|jpeg|png)$/i.test(file.url) ? file.url : FileImage
+                  }
+                />
+              </td>
+              <td>{file.name}</td>
+              <td>{file.category}</td>
+              <td>{file.createdAt}</td>
+              <td>{file.size}</td>
+              <td className={style.tableDataDownloadContainer}>
+                {showDownloadLoader[index] && (
+                  <div className={style.loader}></div>
+                )}
+                {!showDownloadLoader[index] && (
+                  <button
+                    className={style.fileDownloadBtn}
+                    onClick={() => handleDownloadFile(index, file.id)}
+                    aria-label={`Click to download the file ${file.name}`}
+                  >
+                    Download
+                  </button>
+                )}
+              </td>
+              <td className={style.tableDataDeleteContainer}>
+                {showDeleteLoader[index] && (
+                  <div className={style.loader}></div>
+                )}
+                {!showDeleteLoader[index] && (
+                  <button
+                    className={style.fileDeleteBtn}
+                    onClick={() => handleDeleteFile(index, file.id)}
+                    aria-label={`Delete file ${file.name}`}
+                  >
+                    <img src={DeleteSvg} />
+                  </button>
+                )}
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
   );
 }
