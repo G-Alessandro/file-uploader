@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import FolderList from "./folder-list/FolderList";
 import FileList from "./file-list/FileList";
+import style from "./FolderFileContainer.module.css";
 
 export default function FolderFileContainer({
   error,
@@ -51,7 +52,7 @@ export default function FolderFileContainer({
   }, [folderId, statusChanged]);
 
   return (
-    <>
+    <div className={style.folderFileContainer}>
       {error === null && fileList === null && folderList === null && (
         <h3>Loading folder and file...</h3>
       )}
@@ -79,6 +80,6 @@ export default function FolderFileContainer({
           setSuccessfulAction={setSuccessfulAction}
         />
       )}
-    </>
+    </div>
   );
 }
