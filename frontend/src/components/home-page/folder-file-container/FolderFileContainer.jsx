@@ -82,7 +82,7 @@ export default function FolderFileContainer({
           setSuccessfulAction={setSuccessfulAction}
         />
       )}
-      {fileList && (
+      {fileList && fileList.length > 0 && (
         <FileList
           setError={setError}
           fileList={fileList}
