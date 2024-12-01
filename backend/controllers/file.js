@@ -136,7 +136,7 @@ exports.file_post = [
 
       await fs.promises.unlink(req.file.path);
 
-      res.status(200).json({ message: "File saved" });
+      res.status(201).json({ message: "File saved" });
     } catch (error) {
       console.error(error);
       return res.status(500).json({
