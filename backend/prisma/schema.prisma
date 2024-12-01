@@ -49,8 +49,8 @@ model Folder {
   name           String      @db.VarChar(40)
   shareFolder    Boolean     @default(false)
   files          File[]
-  subfolders     Folder[]    @relation("Subfolders")
-  parentFolder   Folder?     @relation("Subfolders", fields: [parentFolderId], references: [id])
+  subFolders     Folder[]    @relation("SubFolders")
+  parentFolder   Folder?     @relation("SubFolders", fields: [parentFolderId], references: [id])
   parentFolderId Int?
   user           UserAccount @relation(fields: [userId], references: [id])
   userId         Int
