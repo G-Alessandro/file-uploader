@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LogoutSvg from "/assets/svg/logout.svg";
+import GoBackSvg from "/assets/svg/go-back.svg";
 import AddFolderSvg from "/assets/svg/add-folder.svg";
 import AddFileSvg from "/assets/svg/add-file.svg";
 import AddFile from "./add-file/AddFile";
@@ -15,6 +16,9 @@ export default function TopBar({
   statusChanged,
   setStatusChanged,
   parentFolderId,
+  folderId,
+  setFolderId,
+  setFolderHistory,
 }) {
   const [userData, setUserData] = useState(null);
   const [showFileForm, setShowFileForm] = useState(false);
@@ -74,6 +78,23 @@ export default function TopBar({
     fetchUserData();
   }, []);
 
+  const handlePreviousFolder = () => {
+    setFolderHistory((prevFolderHistory) => {
+      const newFolderHistory = [...prevFolderHistory];
+      let previousFolder;
+
+      if (newFolderHistory.length >= 2) {
+        previousFolder = newFolderHistory[newFolderHistory.length - 2];
+        newFolderHistory.splice(-1, 1);
+      } else {
+        newFolderHistory.pop();
+        previousFolder = null;
+      }
+      setFolderId(previousFolder);
+      return newFolderHistory;
+    });
+  };
+
   const handleLogout = async (event) => {
     event.preventDefault();
     setShowLoader(true);
@@ -118,10 +139,25 @@ export default function TopBar({
       {userData && (
         <div className={style.topBarContainer}>
           <div className={style.buttonContainer}>
-            <button onClick={() => showForm("folder form")}>
+            {folderId && (
+              <button
+                onClick={() => handlePreviousFolder()}
+                aria-label="Click to return to the previous folder"
+              >
+                <img src={GoBackSvg} />
+              </button>
+            )}
+
+            <button
+              onClick={() => showForm("folder form")}
+              aria-label="click to add a folder"
+            >
               <img src={AddFolderSvg} />
             </button>
-            <button onClick={() => showForm("file form")}>
+            <button
+              onClick={() => showForm("file form")}
+              aria-label="click to add a file"
+            >
               <img src={AddFileSvg} />
             </button>
           </div>

@@ -7,6 +7,8 @@ export default function HomePage() {
   const [successfulAction, setSuccessfulAction] = useState(null);
   const [statusChanged, setStatusChanged] = useState(false);
   const [parentFolderId, setParentFolderId] = useState(null);
+  const [folderId, setFolderId] = useState(null);
+  const [folderHistory, setFolderHistory] = useState([]);
 
   useEffect(() => {
     if (error !== null) {
@@ -32,6 +34,10 @@ export default function HomePage() {
         statusChanged={statusChanged}
         setStatusChanged={setStatusChanged}
         parentFolderId={parentFolderId}
+        folderId={folderId}
+        setFolderId={setFolderId}
+        folderHistory={folderHistory}
+        setFolderHistory={setFolderHistory}
       />
       <FolderFileContainer
         error={error}
@@ -41,6 +47,9 @@ export default function HomePage() {
         setStatusChanged={setStatusChanged}
         parentFolderId={parentFolderId}
         setParentFolderId={setParentFolderId}
+        folderId={folderId}
+        setFolderId={setFolderId}
+        setFolderHistory={setFolderHistory}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState } from "react";
 import Checkmark from "/assets/svg/checkmark.svg";
 import DeleteSvg from "/assets/svg/delete.svg";
 import EditSvg from "/assets/svg/edit.svg";
@@ -14,6 +14,7 @@ export default function FolderList({
   setSuccessfulAction,
   statusChanged,
   setStatusChanged,
+  setFolderHistory,
 }) {
   const [foldersEditName, setFoldersEditName] = useState(folderList);
   const [showFolderOptions, setShowFolderOptions] = useState(
@@ -93,6 +94,13 @@ export default function FolderList({
     }
   };
 
+  const handleFolderClick = (folderId) => {
+    setFolderHistory((prevFolderHistory) => {
+      return [...prevFolderHistory, folderId];
+    });
+    setFolderId(folderId);
+  };
+
   const handleInputChange = (e, id) => {
     const { value } = e.target;
     setFoldersEditName((prevFolders) =>
@@ -101,7 +109,7 @@ export default function FolderList({
       )
     );
   };
-  
+
   return (
     <div className={style.foldersList}>
       {parentFolderId === null && (
@@ -134,7 +142,7 @@ export default function FolderList({
 
               <button
                 className={style.folderBtn}
-                onClick={() => setFolderId(folder.id)}
+                onClick={() => handleFolderClick(folder.id)}
                 aria-label={`Click to view the file inside the folder ${folder.name}`}
               >
                 <img src={FolderSvg} />

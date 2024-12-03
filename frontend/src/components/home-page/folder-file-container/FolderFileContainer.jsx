@@ -11,10 +11,12 @@ export default function FolderFileContainer({
   setStatusChanged,
   parentFolderId,
   setParentFolderId,
+  folderId,
+  setFolderId,
+  setFolderHistory,
 }) {
   const [fileList, setFileList] = useState(null);
   const [folderList, setFolderList] = useState(null);
-  const [folderId, setFolderId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,6 +82,7 @@ export default function FolderFileContainer({
           statusChanged={statusChanged}
           setStatusChanged={setStatusChanged}
           setSuccessfulAction={setSuccessfulAction}
+          setFolderHistory={setFolderHistory}
         />
       )}
       {fileList && fileList.length > 0 && (
