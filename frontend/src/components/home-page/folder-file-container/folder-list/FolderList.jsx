@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState} from "react";
 import Checkmark from "/assets/svg/checkmark.svg";
 import DeleteSvg from "/assets/svg/delete.svg";
 import EditSvg from "/assets/svg/edit.svg";
@@ -9,6 +9,7 @@ import style from "./FolderList.module.css";
 export default function FolderList({
   setError,
   folderList,
+  parentFolderId,
   setFolderId,
   setSuccessfulAction,
   statusChanged,
@@ -100,18 +101,20 @@ export default function FolderList({
       )
     );
   };
-
+  
   return (
     <div className={style.foldersList}>
-      <button
-        className={style.folderBtn}
-        onClick={() => setFolderId("shared file")}
-        aria-label={"Click to view all the shared file inside the folder"}
-      >
-        <img src={FolderSvg} />
+      {parentFolderId === null && (
+        <button
+          className={style.folderBtn}
+          onClick={() => setFolderId("shared file")}
+          aria-label={"Click to view all the shared file inside the folder"}
+        >
+          <img src={FolderSvg} />
 
-        <p>All files shared by users</p>
-      </button>
+          <p>All files shared by users</p>
+        </button>
+      )}
       {folderList.map((folder, index) => {
         return (
           <div key={folder.id} className={style.folderContainer}>
