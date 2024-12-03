@@ -36,6 +36,7 @@ export default function AddFolder({
 
       const data = await response.json();
       if (!response.ok) {
+        setShowLoader(false);
         setError("Unable to create a new folder");
       } else {
         setSuccessfulAction(data.message);
