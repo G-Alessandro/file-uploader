@@ -60,7 +60,14 @@ export default function AddFolder({
         <img src={CancelSvg} />
       </button>
       <label htmlFor="folderName">Folder name:</label>
-      <input type="text" name="folderName" id="folderName" required />
+      <input
+        type="text"
+        minLength="1"
+        maxLength="40"
+        name="folderName"
+        id="folderName"
+        required
+      />
 
       <p>Is this a shared folder?</p>
       <div className={style.inputRadioContainer}>

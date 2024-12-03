@@ -87,7 +87,14 @@ export default function AddFile({
 
         <div className={style.fileDataContainer}>
           <label htmlFor="fileName">File name:</label>
-          <input type="text" name="fileName" id="fileName" required />
+          <input
+            type="text"
+            minLength="1"
+            maxLength="40"
+            name="fileName"
+            id="fileName"
+            required
+          />
 
           <div className={style.fileBtnContainer}>
             <input
