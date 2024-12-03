@@ -31,7 +31,7 @@ export default function FolderList({
     );
   };
 
-  const handleFolderDelete = async (id) => {
+  const handleFolderDelete = async (id, index) => {
     const bodyData = JSON.stringify({
       folderId: id,
     });
@@ -52,6 +52,9 @@ export default function FolderList({
       if (!response.ok) {
         setError("An error occurred while deleting the folder.");
       } else {
+        setShowFolderOptions((prevOptions) =>
+          prevOptions.map((option, i) => (i === index ? !option : false))
+        );
         setStatusChanged(!statusChanged);
         setSuccessfulAction(data.message);
       }
@@ -95,6 +98,9 @@ export default function FolderList({
   };
 
   const handleFolderClick = (folderId) => {
+    setShowFolderOptions((prevOptions) =>
+      prevOptions.map((option) => (option === false ? option : false))
+    );
     setFolderHistory((prevFolderHistory) => {
       return [...prevFolderHistory, folderId];
     });
@@ -133,7 +139,7 @@ export default function FolderList({
               {showFolderOptions[index] && (
                 <button
                   className={style.deleteFolder}
-                  onClick={() => handleFolderDelete(folder.id)}
+                  onClick={() => handleFolderDelete(folder.id, index)}
                   aria-label={`Click to delete the folder ${folder.name}`}
                 >
                   <img src={DeleteSvg} />
