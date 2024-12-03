@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Checkmark from "/assets/svg/checkmark.svg";
 import DeleteSvg from "/assets/svg/delete.svg";
 import EditSvg from "/assets/svg/edit.svg";
@@ -20,6 +20,12 @@ export default function FolderList({
   const [showFolderOptions, setShowFolderOptions] = useState(
     Array(folderList.length).fill(false)
   );
+
+  useEffect(() => {
+    setShowFolderOptions(Array(folderList.length).fill(false));
+    setFoldersEditName(folderList);
+  }, [folderList]);
+
   const handleToggleOption = (index, basicName) => {
     setShowFolderOptions((prevOptions) =>
       prevOptions.map((option, i) => (i === index ? !option : false))
