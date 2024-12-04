@@ -38,8 +38,8 @@
   margin-right: 150px;
 }
 
-.buttonContainer > button:first-child {
-  margin-right: 35px;
+.middleBtn {
+  margin: 0px 35px;
 }
 
 .topBarContainer > h2 {
