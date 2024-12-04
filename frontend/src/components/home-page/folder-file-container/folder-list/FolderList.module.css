@@ -14,7 +14,7 @@
 }
 
 .deleteFolderSpace {
-  width: 22px;
+  width: 24px;
 }
 
 .folderEditBtn,
@@ -68,6 +68,7 @@
   width: 60px;
   height: fit-content;
   overflow-wrap: break-word;
+  border-bottom: 1px solid rgba(0, 0, 0, 0);
 }
 
 .folderEditForm {
@@ -79,8 +80,8 @@
   color: black;
   width: 60px;
   text-align: center;
-  font-size: 12px;
   padding: 0px 1px;
+  outline: none;
   border: none;
   border-bottom: 1px solid black;
   field-sizing: content;
@@ -91,7 +92,6 @@
   background-color: white;
   border: 2px solid rgb(201, 201, 201);
   cursor: pointer;
-  margin-left: 5px;
 }
 
 .folderEditForm > button:hover {
