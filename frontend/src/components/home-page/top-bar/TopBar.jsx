@@ -149,6 +149,7 @@ export default function TopBar({
             )}
 
             <button
+              className={style.middleBtn}
               onClick={() => showForm("folder form")}
               aria-label="click to add a folder"
             >
