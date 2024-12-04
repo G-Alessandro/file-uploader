@@ -18,10 +18,11 @@ exports.shared_file_get = asyncHandler(async (req, res) => {
         id: true,
       },
     });
-    const sharedFile = await Promise.all(
-      sharedFolder.map(async (id) => {
-        prisma.file.findMany({
-          where: { folderId: id },
+
+    let sharedFile = (await Promise.all(
+      sharedFolder.map(async (folder) => {
+        return prisma.file.findMany({
+          where: { folderId: folder.id },
           select: {
             id: true,
             name: true,
@@ -32,7 +33,7 @@ exports.shared_file_get = asyncHandler(async (req, res) => {
           },
         });
       })
-    );
+    )).flat();
 
     res.status(200).json({ sharedFile });
   } catch (error) {
