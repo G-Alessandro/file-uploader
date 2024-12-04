@@ -1,5 +1,6 @@
 .foldersList {
   display: flex;
+  flex-wrap: wrap;
   gap: 15px;
 }
 
@@ -50,7 +51,12 @@
   background-color: white;
   border: none;
   cursor: pointer;
-  margin-left: 5px;
+}
+
+.sharedFolder {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 24px;
 }
 
 .folderBtn > img {
@@ -58,21 +64,30 @@
   height: 60px;
 }
 
+.folderBtn > p {
+  width: 60px;
+  height: fit-content;
+  overflow-wrap: break-word;
+}
+
 .folderEditForm {
   display: flex;
   justify-content: flex-end;
 }
 
-.folderEditForm > input {
+.folderEditForm > textarea {
   color: black;
   width: 60px;
+  text-align: center;
   font-size: 12px;
   padding: 0px 1px;
   border: none;
   border-bottom: 1px solid black;
+  field-sizing: content;
 }
 
 .folderEditForm > button {
+  align-self: flex-end;
   background-color: white;
   border: 2px solid rgb(201, 201, 201);
   cursor: pointer;
