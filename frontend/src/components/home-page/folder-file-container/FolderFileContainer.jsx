@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import FolderList from "./folder-list/FolderList";
 import FileList from "./file-list/FileList";
+import AddFolderSvg from "/assets/svg/add-folder.svg";
+import AddFileSvg from "/assets/svg/add-file.svg";
 import style from "./FolderFileContainer.module.css";
 
 export default function FolderFileContainer({
@@ -52,6 +54,7 @@ export default function FolderFileContainer({
 
           if (fetchPath === "shared-files") {
             setFolderList(null);
+            setFileList(data.sharedFile);
           }
         }
       } catch (error) {
@@ -66,12 +69,25 @@ export default function FolderFileContainer({
   return (
     <div className={style.folderFileContainer}>
       {error === null && fileList === null && folderList === null && (
-        <h3>Loading folder and file...</h3>
+        <h3>Loading...</h3>
       )}
-      {!folderList && !fileList && (
-        <h2>
-          Use the buttons on the top bar to create a folder or save a file!
-        </h2>
+      {folderList && fileList && (
+        <div className={style.howToContainer}>
+          {folderList && folderList.length === 0 && (
+            <h2>
+              Use the button
+              <img src={AddFolderSvg} alt="click to add a folder" />
+              on the top-bar to create a folder!
+            </h2>
+          )}
+          {fileList && fileList.length === 0 && (
+            <h2>
+              Use the button
+              <img src={AddFileSvg} alt="click to add a file" />
+              on the top-bar to save a file!
+            </h2>
+          )}
+        </div>
       )}
       {folderList && (
         <FolderList
