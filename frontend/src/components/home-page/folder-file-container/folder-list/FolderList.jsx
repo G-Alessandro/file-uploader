@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Checkmark from "/assets/svg/checkmark.svg";
 import DeleteSvg from "/assets/svg/delete.svg";
 import EditSvg from "/assets/svg/edit.svg";
@@ -126,7 +126,7 @@ export default function FolderList({
     <div className={style.foldersList}>
       {parentFolderId === null && (
         <button
-          className={style.folderBtn}
+          className={`${style.folderBtn} ${style.sharedFolder}`}
           onClick={() => setFolderId("shared file")}
           aria-label={"Click to view all the shared file inside the folder"}
         >
@@ -184,8 +184,11 @@ export default function FolderList({
                 onSubmit={(event) => handleFolderEdit(event, index, folder.id)}
                 className={style.folderEditForm}
               >
-                <input
-                  type="text"
+                <textarea
+                  style={{
+                    overflow: "hidden",
+                    resize: "none",
+                  }}
                   name="folderName"
                   id="folderName"
                   value={foldersEditName[index].name}
