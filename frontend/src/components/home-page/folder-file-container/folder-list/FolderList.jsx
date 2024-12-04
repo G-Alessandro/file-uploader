@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect} from "react";
 import Checkmark from "/assets/svg/checkmark.svg";
 import DeleteSvg from "/assets/svg/delete.svg";
 import EditSvg from "/assets/svg/edit.svg";
