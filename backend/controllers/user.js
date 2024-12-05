@@ -16,7 +16,17 @@ exports.user_data_get = asyncHandler(async (req, res) => {
         lastName: true,
       },
     });
-    res.status(200).json({ userData });
+
+    const formattedUserData = {
+      firstName:
+        userData.firstName.charAt(0).toUpperCase() +
+        userData.firstName.slice(1).toLowerCase(),
+      lastName:
+        userData.lastName.charAt(0).toUpperCase() +
+        userData.lastName.slice(1).toLowerCase(),
+    };
+    
+    res.status(200).json({ userData: formattedUserData });
   } catch (error) {
     console.error(error);
     return res.status(500).json({
