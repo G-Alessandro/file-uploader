@@ -49,48 +49,6 @@ exports.shared_file_get = asyncHandler(async (req, res) => {
   }
 });
 
-exports.folder_file_get = asyncHandler(async (req, res) => {
-  handleValidationErrors(req, res);
-
-  try {
-    const userId = req.user.id;
-    const allFolder = await prisma.folder.findMany({
-      where: {
-        userId: userId,
-        parentFolderId: null,
-      },
-      select: {
-        id: true,
-        name: true,
-      },
-    });
-    const allFile = await prisma.file.findMany({
-      where: {
-        userId: userId,
-        folderId: null,
-      },
-      select: {
-        id: true,
-        name: true,
-        category: true,
-        size: true,
-        url: true,
-        public_id: true,
-        createdAt: true,
-      },
-    });
-    res.status(200).json({
-      files: allFile,
-      folders: allFolder,
-    });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      error: "An error occurred while searching for user profile data.",
-    });
-  }
-});
-
 exports.file_post = [
   multer.single("file"),
   body("fileName").trim().isLength({ min: 1, max: 40 }).escape(),

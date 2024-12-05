@@ -27,8 +27,6 @@ router.get("/user-data", user_controllers.user_data_get);
 
 router.get("/shared-files", file_controllers.shared_file_get);
 
-router.get("/all-folders-files", file_controllers.folder_file_get);
-
 router.post("/new-file", file_controllers.file_post);
 
 router.delete("/remove-file", file_controllers.file_delete);
