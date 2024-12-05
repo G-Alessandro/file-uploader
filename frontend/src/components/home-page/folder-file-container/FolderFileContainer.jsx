@@ -17,19 +17,18 @@ export default function FolderFileContainer({
   setFolderId,
   setFolderHistory,
 }) {
+  const [userId, setUserId] = useState(null);
   const [fileList, setFileList] = useState(null);
   const [folderList, setFolderList] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       let fetchPath;
-      if (folderId >= 0) {
-        fetchPath = `get-folders/${folderId}`;
-        setParentFolderId(folderId);
-      } else if (folderId === "shared file") {
+      if (folderId === "shared file") {
         fetchPath = "shared-files";
       } else {
-        fetchPath = "all-folders-files";
+        fetchPath = `get-folders/${folderId}`;
+        setParentFolderId(folderId);
       }
       try {
         const response = await fetch(
@@ -44,17 +43,11 @@ export default function FolderFileContainer({
         if (!data) {
           setError(data.error);
         } else {
-          if (data.files) {
-            setFileList(data.files);
-          }
-
-          if (data.folders) {
-            setFolderList(data.folders);
-          }
-
+          setUserId(data.userId);
+          setFileList(data.files);
+          setFolderList(data.folders);
           if (fetchPath === "shared-files") {
             setFolderList(null);
-            setFileList(data.sharedFile);
           }
         }
       } catch (error) {
@@ -104,6 +97,7 @@ export default function FolderFileContainer({
       {fileList && fileList.length > 0 && (
         <FileList
           setError={setError}
+          userId={userId}
           fileList={fileList}
           statusChanged={statusChanged}
           setStatusChanged={setStatusChanged}
