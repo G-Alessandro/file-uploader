@@ -40,7 +40,7 @@ exports.shared_file_get = asyncHandler(async (req, res) => {
       )
     ).flat();
 
-    res.status(200).json({ sharedFile, userId });
+    res.status(200).json({ files: sharedFile, userId });
   } catch (error) {
     console.error(error);
     return res.status(500).json({
