@@ -5,6 +5,7 @@ import style from "./FileList.module.css";
 
 export default function FileList({
   setError,
+  userId,
   fileList,
   statusChanged,
   setStatusChanged,
@@ -125,7 +126,7 @@ export default function FileList({
                 {showDeleteLoader[index] && (
                   <div className={style.loader}></div>
                 )}
-                {!showDeleteLoader[index] && (
+                {!showDeleteLoader[index] && file.userId === userId && (
                   <button
                     className={style.fileDeleteBtn}
                     onClick={() => handleDeleteFile(index, file.id)}
