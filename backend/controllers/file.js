@@ -10,6 +10,7 @@ const prisma = new PrismaClient();
 exports.shared_file_get = asyncHandler(async (req, res) => {
   handleValidationErrors(req, res);
   try {
+    const userId = req.user.id;
     const sharedFolder = await prisma.folder.findMany({
       where: {
         shareFolder: true,
@@ -19,23 +20,27 @@ exports.shared_file_get = asyncHandler(async (req, res) => {
       },
     });
 
-    let sharedFile = (await Promise.all(
-      sharedFolder.map(async (folder) => {
-        return prisma.file.findMany({
-          where: { folderId: folder.id },
-          select: {
-            id: true,
-            name: true,
-            size: true,
-            url: true,
-            public_id: true,
-            createdAt: true,
-          },
-        });
-      })
-    )).flat();
+    let sharedFile = (
+      await Promise.all(
+        sharedFolder.map(async (folder) => {
+          return prisma.file.findMany({
+            where: { folderId: folder.id },
+            select: {
+              id: true,
+              userId: true,
+              name: true,
+              category: true,
+              size: true,
+              url: true,
+              public_id: true,
+              createdAt: true,
+            },
+          });
+        })
+      )
+    ).flat();
 
-    res.status(200).json({ sharedFile });
+    res.status(200).json({ sharedFile, userId });
   } catch (error) {
     console.error(error);
     return res.status(500).json({
