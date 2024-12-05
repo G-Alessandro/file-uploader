@@ -32,14 +32,16 @@ exports.folder_get = [
         },
         select: {
           id: true,
+          userId: true,
           name: true,
+          category: true,
           size: true,
           url: true,
           public_id: true,
           createdAt: true,
         },
       });
-      res.status(200).json({ folders: subFolder, files: folderFile });
+      res.status(200).json({ userId, folders: subFolder, files: folderFile });
     } catch (error) {
       console.error(error);
       return res.status(500).json({
