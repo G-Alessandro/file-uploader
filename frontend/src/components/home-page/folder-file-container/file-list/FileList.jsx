@@ -90,6 +90,7 @@ export default function FileList({
           <th>Name</th>
           <th>Category</th>
           <th>Uploaded</th>
+          {fileList[0].author && <th>Author</th>}
           <th>Size</th>
         </tr>
       </thead>
@@ -107,6 +108,9 @@ export default function FileList({
               <td>{file.name}</td>
               <td>{file.category}</td>
               <td>{file.createdAt}</td>
+              {file.author && (
+                <td>{file.userId === userId ? "You" : file.author}</td>
+              )}
               <td>{file.size}</td>
               <td className={style.tableDataDownloadContainer}>
                 {showDownloadLoader[index] && (
