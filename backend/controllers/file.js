@@ -10,17 +10,33 @@ const prisma = new PrismaClient();
 exports.shared_file_get = asyncHandler(async (req, res) => {
   handleValidationErrors(req, res);
   try {
-    const userId = req.user.id;
+    const userId = req.user?.id || null;
     const sharedFolder = await prisma.folder.findMany({
       where: {
         shareFolder: true,
       },
       select: {
         id: true,
+        userId: true,
       },
     });
 
-    let sharedFile = (
+    const sharedFolderUsers = (
+      await Promise.all(
+        sharedFolder.map(async (folder) => {
+          return prisma.userAccount.findMany({
+            where: { id: folder.userId },
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+            },
+          });
+        })
+      )
+    ).flat();
+
+    const sharedFile = (
       await Promise.all(
         sharedFolder.map(async (folder) => {
           return prisma.file.findMany({
@@ -40,7 +56,22 @@ exports.shared_file_get = asyncHandler(async (req, res) => {
       )
     ).flat();
 
-    res.status(200).json({ files: sharedFile, userId });
+    const sharedFileWhitAuthor = sharedFile.map((file) => {
+      const user = sharedFolderUsers.find((u) => u.id === file.userId);
+      if (user) {
+        return {
+          ...file,
+          author: `${user.firstName.charAt(0).toUpperCase()}${user.firstName
+            .slice(1)
+            .toLowerCase()} ${user.lastName
+            .charAt(0)
+            .toUpperCase()}${user.lastName.slice(1).toLowerCase()}`,
+        };
+      }
+      return file;
+    });
+
+    res.status(200).json({ userId, files: sharedFileWhitAuthor });
   } catch (error) {
     console.error(error);
     return res.status(500).json({
