@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import Checkmark from "/assets/svg/checkmark.svg";
-// import style from "./Login.module.css";
+import Checkmark from "/assets/svg/checkmark.svg";
+import style from "./Login.module.css";
 
 export default function Login({ setCreateAccount }) {
   const [logInError, setLogInError] = useState(null);
@@ -53,75 +53,17 @@ export default function Login({ setCreateAccount }) {
   };
 
   return (
-    // <>
-    //   {authenticated && (
-    //     <div >
-    //       <h1>Authentication successful</h1>
-    //       <img src={Checkmark} />
-    //     </div>
-    //   )}
-    //   {!authenticated && (
-    //     <div className={style.loginContainer}>
-    //       <h2>Welcome back</h2>
-    //       <div className={style.createAccountButtonContainer}>
-    //         <h3>New to QuickChat?</h3>
-    //         <button
-    //           onClick={() => setCreateAccount((prev) => !prev)}
-    //           aria-label="Click to view the fields to fill in to create an account"
-    //         >
-    //           Create an account
-    //         </button>
-    //       </div>
-    //       <form onSubmit={(event) => handleSubmit(event, "sign-in")}>
-    //         <label htmlFor="email">Email</label>
-    //         <input
-    //           type="text"
-    //           id="email"
-    //           name="email"
-    //           placeholder="Enter your email"
-    //           required
-    //         />
-
-    //         <label htmlFor="password">Password</label>
-    //         <input
-    //           type="password"
-    //           id="password"
-    //           name="password"
-    //           placeholder="Enter your password"
-    //           required
-    //         />
-
-    //         {logInError && <p className={style.logInError}>{logInError}</p>}
-
-    //         {showLoader && <div className={style.loader}></div>}
-
-    //         {showLoader === false && (
-    //           <>
-    //             <button type="submit" className={style.submitButton}>
-    //               Log in
-    //             </button>
-    //             <button
-    //               onClick={(event) => handleSubmit(event, "demo-account")}
-    //               className={style.demoAccountButton}
-    //             >
-    //               Try a demo account
-    //             </button>
-    //           </>
-    //         )}
-    //       </form>
-    //     </div>
-    //   )}
-    // </>
     <>
       {authenticated && (
         <div>
           <h1>Authentication successful</h1>
+          <img src={Checkmark} />
         </div>
       )}
       {!authenticated && (
-        <div>
+        <div className={style.loginContainer}>
           <h2>Welcome back</h2>
-          <div>
+          <div className={style.createAccountButtonContainer}>
             <h3>New to File Uploader?</h3>
             <button
               onClick={() => setCreateAccount((prev) => !prev)}
@@ -149,15 +91,18 @@ export default function Login({ setCreateAccount }) {
               required
             />
 
-            {logInError && <p>{logInError}</p>}
+            {logInError && <p className={style.logInError}>{logInError}</p>}
 
-            {showLoader && <div></div>}
+            {showLoader && <div className={style.loader}></div>}
 
             {showLoader === false && (
               <>
-                <button type="submit">Log in</button>
+                <button type="submit" className={style.submitButton}>
+                  Log in
+                </button>
                 <button
                   onClick={(event) => handleSubmit(event, "demo-account")}
+                  className={style.demoAccountButton}
                 >
                   Try a demo account
                 </button>
