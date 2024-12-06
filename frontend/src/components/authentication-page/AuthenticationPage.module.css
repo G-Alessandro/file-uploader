@@ -1,0 +1,11 @@
+.authenticationPageContainer {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.latestSharedFiles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
