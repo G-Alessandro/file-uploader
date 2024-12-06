@@ -83,67 +83,71 @@ export default function FileList({
   };
 
   return (
-    <table className={style.fileListContainer}>
-      <thead>
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Category</th>
-          <th>Uploaded</th>
-          {fileList[0].author && <th>Author</th>}
-          <th>Size</th>
-        </tr>
-      </thead>
-      <tbody>
-        {fileList.map((file, index) => {
-          return (
-            <tr key={file.id} className={style.fileDataContainer}>
-              <td>
-                <img
-                  src={
-                    /\.(jpg|jpeg|png)$/i.test(file.url) ? file.url : FileImage
-                  }
-                />
-              </td>
-              <td>{file.name}</td>
-              <td>{file.category}</td>
-              <td>{file.createdAt}</td>
-              {file.author && (
-                <td>{file.userId === userId ? "You" : file.author}</td>
-              )}
-              <td>{file.size}</td>
-              <td className={style.tableDataDownloadContainer}>
-                {showDownloadLoader[index] && (
-                  <div className={style.loader}></div>
+    <div className={style.tableContainer}>
+      <table className={style.fileListContainer}>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Uploaded</th>
+            {fileList[0].author && <th>Author</th>}
+            <th>Size</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {fileList.map((file, index) => {
+            return (
+              <tr key={file.id} className={style.fileDataContainer}>
+                <td>
+                  <img
+                    src={
+                      /\.(jpg|jpeg|png)$/i.test(file.url) ? file.url : FileImage
+                    }
+                  />
+                </td>
+                <td>{file.name}</td>
+                <td>{file.category}</td>
+                <td>{file.createdAt}</td>
+                {file.author && (
+                  <td>{file.userId === userId ? "You" : file.author}</td>
                 )}
-                {!showDownloadLoader[index] && (
-                  <button
-                    className={style.fileDownloadBtn}
-                    onClick={() => handleDownloadFile(index, file.id)}
-                    aria-label={`Click to download the file ${file.name}`}
-                  >
-                    Download
-                  </button>
-                )}
-              </td>
-              <td className={style.tableDataDeleteContainer}>
-                {showDeleteLoader[index] && (
-                  <div className={style.loader}></div>
-                )}
-                {!showDeleteLoader[index] && file.userId === userId && (
-                  <button
-                    className={style.fileDeleteBtn}
-                    onClick={() => handleDeleteFile(index, file.id)}
-                    aria-label={`Delete file ${file.name}`}
-                  >
-                    <img src={DeleteSvg} />
-                  </button>
-                )}
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+                <td>{file.size}</td>
+                <td className={style.tableDataDownloadContainer}>
+                  {showDownloadLoader[index] && (
+                    <div className={style.loader}></div>
+                  )}
+                  {!showDownloadLoader[index] && (
+                    <button
+                      className={style.fileDownloadBtn}
+                      onClick={() => handleDownloadFile(index, file.id)}
+                      aria-label={`Click to download the file ${file.name}`}
+                    >
+                      Download
+                    </button>
+                  )}
+                </td>
+                <td className={style.tableDataDeleteContainer}>
+                  {showDeleteLoader[index] && (
+                    <div className={style.loader}></div>
+                  )}
+                  {!showDeleteLoader[index] && file.userId === userId && (
+                    <button
+                      className={style.fileDeleteBtn}
+                      onClick={() => handleDeleteFile(index, file.id)}
+                      aria-label={`Delete file ${file.name}`}
+                    >
+                      <img src={DeleteSvg} />
+                    </button>
+                  )}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 }
