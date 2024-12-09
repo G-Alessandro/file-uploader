@@ -94,7 +94,7 @@ export default function FileList({
             {fileList[0].author && <th>Author</th>}
             <th>Size</th>
             <th></th>
-            <th></th>
+            {userId && <th></th>}
           </tr>
         </thead>
         <tbody>
@@ -129,20 +129,22 @@ export default function FileList({
                     </button>
                   )}
                 </td>
-                <td className={style.tableDataDeleteContainer}>
-                  {showDeleteLoader[index] && (
-                    <div className={style.loader}></div>
-                  )}
-                  {!showDeleteLoader[index] && file.userId === userId && (
-                    <button
-                      className={style.fileDeleteBtn}
-                      onClick={() => handleDeleteFile(index, file.id)}
-                      aria-label={`Delete file ${file.name}`}
-                    >
-                      <img src={DeleteSvg} />
-                    </button>
-                  )}
-                </td>
+                {userId && (
+                  <td className={style.tableDataDeleteContainer}>
+                    {showDeleteLoader[index] && (
+                      <div className={style.loader}></div>
+                    )}
+                    {!showDeleteLoader[index] && file.userId === userId && (
+                      <button
+                        className={style.fileDeleteBtn}
+                        onClick={() => handleDeleteFile(index, file.id)}
+                        aria-label={`Delete file ${file.name}`}
+                      >
+                        <img src={DeleteSvg} />
+                      </button>
+                    )}
+                  </td>
+                )}
               </tr>
             );
           })}
