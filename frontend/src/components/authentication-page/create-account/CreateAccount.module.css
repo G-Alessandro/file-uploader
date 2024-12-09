@@ -33,13 +33,13 @@
   }
   
   .goToLoginButtonContainer > button {
-    color: #33cc99;
+    color: rgb(61, 194, 255);;
     font-size: 20px;
     font-weight: 700;
     cursor: pointer;
     background-color: white;
     border: none;
-    border-bottom: 2px solid #33cc99;
+    border-bottom: 2px solid rgb(61, 194, 255);;
   }
   
   .createAccountContainer > form {
@@ -77,13 +77,14 @@
     font-weight: 700;
     margin-top: 15px;
     background-color: white;
-    border: 3px solid #ffb89a;
+    border: 3px solid rgb(61, 194, 255);
     cursor: pointer;
   }
   
   .createAccountContainer > form > button:hover {
     color: white;
-    background-color: #ffb89a;
+    background-color: rgb(50, 160, 211);
+    border: 3px solid rgb(50, 160, 211);
   }
   
   .createAccountContainer > form > .loader {
