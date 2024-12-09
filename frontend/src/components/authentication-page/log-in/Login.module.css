@@ -29,13 +29,13 @@
   }
   
   .createAccountButtonContainer > button {
-    color: #33cc99;
+    color: rgb(61, 194, 255);
     font-size: 20px;
     font-weight: 700;
     cursor: pointer;
     background-color: white;
     border: none;
-    border-bottom: 2px solid #33cc99;
+    border-bottom: 2px solid rgb(61, 194, 255);
   }
   
   .loginContainer > form {
@@ -48,7 +48,7 @@
   
   .loginContainer > form > input {
     height: 35px;
-    width: 350px;
+    width: 100%;
     font-size: 20px;
     margin-top: 5px;
     margin-bottom: 20px;
@@ -72,13 +72,13 @@
     font-size: 25px;
     font-weight: 700;
     margin-top: 15px;
-    background-color: #33cc99;
+    background-color: rgb(61, 194, 255);
     border: none;
     cursor: pointer;
   }
   
   .submitButton:hover {
-    background-color: #2bb184;
+    background-color: rgb(50, 160, 211);
   }
   
   .demoAccountButton {
