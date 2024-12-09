@@ -40,6 +40,9 @@ exports.folder_get = [
           public_id: true,
           createdAt: true,
         },
+        orderBy: {
+          createdAt: "desc",
+        },
       });
       res.status(200).json({ userId, folders: subFolder, files: folderFile });
     } catch (error) {

@@ -51,6 +51,9 @@ exports.shared_file_get = asyncHandler(async (req, res) => {
               public_id: true,
               createdAt: true,
             },
+            orderBy: {
+              createdAt: "desc",
+            },
           });
         })
       )
