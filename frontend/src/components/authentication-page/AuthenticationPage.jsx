@@ -46,7 +46,7 @@ export default function LoginPage() {
       {error && <h2>{error}</h2>}
       {latestSharedFiles && latestSharedFiles.length > 0 && (
         <div className={style.latestSharedFiles}>
-          <h2>Latest Shared Files</h2>
+          <h2>LATEST SHARED FILES</h2>
           <FileList setError={setError} fileList={latestSharedFiles} />
         </div>
       )}
