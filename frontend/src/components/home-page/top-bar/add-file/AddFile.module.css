@@ -1,9 +1,10 @@
 .fileForm {
   position: absolute;
   top: 80px;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  margin-right: 30%;
+  margin-right: 35%;
   border: 2px solid #d9b78b;
   padding: 8px 10px;
   border-radius: 5px;

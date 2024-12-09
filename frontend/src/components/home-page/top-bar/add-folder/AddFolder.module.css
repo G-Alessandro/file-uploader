@@ -1,6 +1,7 @@
 .folderForm {
   position: absolute;
   top: 80px;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   margin-right: 40%;
