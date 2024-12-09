@@ -55,7 +55,7 @@ export default function Login({ setCreateAccount }) {
   return (
     <>
       {authenticated && (
-        <div>
+        <div className={style.authenticationSuccessfulContainer}>
           <h1>Authentication successful</h1>
           <img src={Checkmark} />
         </div>
