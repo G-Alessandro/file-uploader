@@ -1,10 +1,13 @@
 .fileForm {
   position: absolute;
   top: 80px;
+  left: 0;
+  right: 0;
+  width: fit-content;
+  margin-inline: auto;
   z-index: 1;
   display: flex;
   flex-direction: column;
-  margin-right: 35%;
   border: 2px solid #d9b78b;
   padding: 8px 10px;
   border-radius: 5px;
@@ -156,5 +159,55 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 500px) {
+  .fileForm {
+    top: 8px;
+    padding: 0px 1px;
+  }
+      
+  .previewFileImageContainer {
+    display: none;
+  }
+  
+  .fileDataContainer {
+    margin-left: 5px;
+  }
+  
+  .fileDataContainer > label {
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  .fileBtnContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .fileDataContainer > select,
+  .fileDataContainer > input {
+    width: 270px;
+  }
+
+  .fileBtnContainer > button {
+    width: fit-content;
+    font-size: 16px;
+  }
+  
+  .fileDataContainer > select {
+    width: 100px;
+  }
+  
+  .fileFormSubmitBtn {
+    font-size: 18px;
+    margin-top: 5px;
+  }
+  
+  .fileDataContainer > .loader {
+    border: 12px solid #d4d4d4;
+    border-top: 12px solid #3498db;
   }
 }

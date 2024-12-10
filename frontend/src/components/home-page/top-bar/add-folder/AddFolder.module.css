@@ -2,9 +2,12 @@
   position: absolute;
   top: 80px;
   z-index: 1;
+  left: 0;
+  right: 0;
+  width: fit-content;
+  margin-inline: auto;
   display: flex;
   flex-direction: column;
-  margin-right: 40%;
   border: 2px solid #d9b78b;
   padding: 8px 10px;
   border-radius: 5px;
@@ -115,4 +118,21 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+@media (max-width:500px) {
+  .folderForm {
+    top: 80px;
+  }
+  
+  .folderForm > label {
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .folderForm > input {
+    width: 270px;
+  }
+  
 }
