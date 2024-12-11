@@ -34,9 +34,6 @@ export default function LoginPage() {
 
     fetchData();
   }, []);
-  useEffect(() => {
-    console.log(latestSharedFiles);
-  }, [latestSharedFiles]);
   return (
     <div className={style.authenticationPageContainer}>
       <div>
