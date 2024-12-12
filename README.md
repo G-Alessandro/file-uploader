@@ -3,7 +3,7 @@
 <p>Personal storage application created to practice the use of SQL and Prisma learned through <a href="https://www.theodinproject.com/lessons/nodejs-file-uploader" target="_blank">The Odin Project course</a></p>
 
 <img src="./frontend/public/assets/images/app-image.png" alt="App image">
-<a href="https://fluffy-druid-2a5c81.netlify.app/authentication-page" target="_blank">Link to the app website</a>
+<a href="https://fluffy-druid-2a5c81.netlify.app" target="_blank">Link to the app website</a>
 
 <h2>Features:</h2>
 
