@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { body, param } = require("express-validator");
 const handleValidationErrors = require("../utils/validation/validation");
+const he = require("he");
 const cloudinary = require("../utils/cloudinary/cloudinary-config");
 const multer = require("../utils/multer/multer");
 const fs = require("fs");
@@ -59,16 +60,22 @@ exports.shared_file_get = asyncHandler(async (req, res) => {
       )
     ).flat();
 
+    sharedFile.forEach((file) => {
+      file.name = he.decode(file.name);
+    });
+
     const sharedFileWhitAuthor = sharedFile.map((file) => {
       const user = sharedFolderUsers.find((u) => u.id === file.userId);
       if (user) {
         return {
           ...file,
-          author: `${user.firstName.charAt(0).toUpperCase()}${user.firstName
-            .slice(1)
-            .toLowerCase()} ${user.lastName
-            .charAt(0)
-            .toUpperCase()}${user.lastName.slice(1).toLowerCase()}`,
+          author: he.decode(
+            `${user.firstName.charAt(0).toUpperCase()}${user.firstName
+              .slice(1)
+              .toLowerCase()} ${user.lastName
+              .charAt(0)
+              .toUpperCase()}${user.lastName.slice(1).toLowerCase()}`
+          ),
         };
       }
       return file;
