@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { body, param } = require("express-validator");
 const handleValidationErrors = require("../utils/validation/validation");
+const he = require("he");
 const cloudinary = require("../utils/cloudinary/cloudinary-config");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
@@ -25,6 +26,10 @@ exports.folder_get = [
         },
       });
 
+      subFolder.forEach(folder => {
+        folder.name = he.decode(folder.name);
+      });
+
       const folderFile = await prisma.file.findMany({
         where: {
           userId: userId,
@@ -44,6 +49,11 @@ exports.folder_get = [
           createdAt: "desc",
         },
       });
+
+      folderFile.forEach(file => {
+        file.name = he.decode(file.name);
+      });
+
       res.status(200).json({ userId, folders: subFolder, files: folderFile });
     } catch (error) {
       console.error(error);

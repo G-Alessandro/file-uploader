@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const handleValidationErrors = require("../utils/validation/validation");
+const he = require("he");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
@@ -18,14 +19,16 @@ exports.user_data_get = asyncHandler(async (req, res) => {
     });
 
     const formattedUserData = {
-      firstName:
+      firstName: he.decode(
         userData.firstName.charAt(0).toUpperCase() +
-        userData.firstName.slice(1).toLowerCase(),
-      lastName:
+          userData.firstName.slice(1).toLowerCase()
+      ),
+      lastName: he.decode(
         userData.lastName.charAt(0).toUpperCase() +
-        userData.lastName.slice(1).toLowerCase(),
+          userData.lastName.slice(1).toLowerCase()
+      ),
     };
-    
+
     res.status(200).json({ userData: formattedUserData });
   } catch (error) {
     console.error(error);
