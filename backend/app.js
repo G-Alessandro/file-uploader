@@ -16,6 +16,8 @@ const sessionSecret = process.env.SESSION_SECRET;
 
 const app = express();
 
+app.set("trust proxy", true);
+
 app.use(
   cors({
     origin: allowedOrigin,
@@ -26,13 +28,16 @@ app.use(
 app.use(
   expressSession({
     cookie: {
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 1 * 24 * 60 * 60 * 1000,
+      sameSite: "none",
+      httpOnly: true,
     },
     secret: sessionSecret,
     resave: true,
     saveUninitialized: true,
     store: new PrismaSessionStore(new PrismaClient(), {
-      checkPeriod: 2 * 60 * 1000,
+      checkPeriod: 1 * 60 * 1000,
       dbRecordIdIsSessionId: true,
       dbRecordIdFunction: undefined,
     }),
