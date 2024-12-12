@@ -15,6 +15,7 @@
     <li>Upload images, audio, videos and pdf</li>
     <li>Download files uploaded to the application</li>
     <li>Share uploaded files with other users</li>
+    <li>Responsive design for mobile devices</li>
 </ul>
 
 <h2>Technology used:</h2>
